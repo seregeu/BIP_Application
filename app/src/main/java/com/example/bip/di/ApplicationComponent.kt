@@ -6,6 +6,7 @@ import com.example.bip.di.modules.NetworkModule
 import com.example.bip.di.modules.RepositoryModule
 import com.example.bip.di.modules.UseCaseModule
 import com.example.bip.di.subcomponents.AuthComponent
+import com.example.bip.di.subcomponents.RegistrationComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -17,6 +18,8 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun authComponent(): AuthComponent
+
+    fun registerComponent(): RegistrationComponent
 
     @Component.Factory
     interface Factory {

@@ -6,6 +6,8 @@ import com.example.bip.presentation.ui.auth.AuthBaseFragment
 import com.example.bip.presentation.ui.auth.elm.Effect
 import com.example.bip.presentation.ui.auth.elm.Event
 import com.example.bip.presentation.ui.auth.elm.State
+import com.example.bip.presentation.utils.CustomFragmentFactory
+import com.example.bip.presentation.utils.FragmentTag
 import com.example.bip.presentation.utils.showToast
 import vivid.money.elmslie.core.store.Store
 import javax.inject.Inject
@@ -27,6 +29,12 @@ class AuthFragment : AuthBaseFragment() {
         val login = binding.etUsername.text.toString()
         val password = binding.etPassword.text.toString()
         store.accept(Event.Ui.PressButton(username = login, password = password))
+    }
+
+    override fun signUp() {
+        navigateController?.navigateFragment(
+            customFragmentFactory = CustomFragmentFactory.create(FragmentTag.REGISTER_FRAGMENT_TAG)
+        )
     }
 
     override fun handleEffect(effect: Effect) = when (effect) {

@@ -23,7 +23,10 @@ fun AppCompatActivity.addFragment(customFragmentFactory: CustomFragmentFactory) 
         addFragmentWithoutBackstack(customFragmentFactory = customFragmentFactory)
         return
     }*/
-    if (customFragmentFactory.fragmentTag == FragmentTag.AUTH_FRAGMENT_TAG) {
+    if (
+        customFragmentFactory.fragmentTag == FragmentTag.AUTH_FRAGMENT_TAG ||
+        customFragmentFactory.fragmentTag == FragmentTag.REGISTER_FRAGMENT_TAG
+    ) {
         addFragmentWithoutBackstack(customFragmentFactory = customFragmentFactory)
         return
     }/*

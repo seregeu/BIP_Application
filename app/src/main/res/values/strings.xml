@@ -7,4 +7,24 @@
     <string name="hint_login_username">Username</string>
     <string name="hint_login_password">Password</string>
     <string name="btn_string">LogIn</string>
+    <string name="btn_sign_up_string">SignUp</string>
+    <string name="error_message">An error occurred while loading data. Check the connection …</string>
+    <string name="back_button">Back</string>
+    <string name="repeat">Repeat</string>
+    <string name="first_name">First name</string>
+    <string name="create_channel">Create channel</string>
+    <string name="second_name">Second name</string>
+    <string name="is_photographer">Are you photographer?</string>
+    <string name="public_string">Public</string>
+    <string name="private_shared_history">Private, shared history</string>
+    <string name="private_protected_history">Private, protected history</string>
+    <string name="yes_string">yes</string>
+    <string name="no_string">no</string>
+    <string name="register">SignUp</string>
+    <string name="sign_up_title">SignUp</string>
+    <string name="mail_string">Mail</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="avatar_url">Avatar Url</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
