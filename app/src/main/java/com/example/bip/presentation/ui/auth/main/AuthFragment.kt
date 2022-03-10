@@ -1,6 +1,7 @@
 package com.example.bip.presentation.ui.auth.main
 
 import android.os.Bundle
+import android.view.View
 import com.example.bip.App
 import com.example.bip.presentation.ui.auth.AuthBaseFragment
 import com.example.bip.presentation.ui.auth.elm.Effect
@@ -17,6 +18,8 @@ class AuthFragment : AuthBaseFragment() {
     @Inject
     internal lateinit var authStore: Store<Event, Effect, State>
 
+    private var nonAuthToken = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.appComponent.authComponent().inject(this)
@@ -28,7 +31,7 @@ class AuthFragment : AuthBaseFragment() {
     override fun authAction() {
         val login = binding.etUsername.text.toString()
         val password = binding.etPassword.text.toString()
-        store.accept(Event.Ui.PressButton(username = login, password = password))
+        store.accept(Event.Ui.PressAuthButton(username = login, password = password))
     }
 
     override fun signUp() {
@@ -37,16 +40,32 @@ class AuthFragment : AuthBaseFragment() {
         )
     }
 
+    override fun auth2FaAction() {
+        val code: String = binding.et2factor.text.toString()
+        store.accept(Event.Ui.PressAuth2FaButton(code))
+    }
+
     override fun handleEffect(effect: Effect) = when (effect) {
         is Effect.ErrorAuth -> {
-            showToast("Something wrong")
+            showToast(effect.error.message)
         }
         is Effect.SuccessAuth -> {
             showToast("Success auth")
         }
     }
 
-    override fun render(state: State) {}
+    override fun render(state: State) {
+        if (!state.isSuccess) return
+        with(binding) {
+            btnAuth.visibility = View.GONE
+            btnLogin.visibility = View.GONE
+            etPassword.visibility = View.GONE
+            etUsername.visibility = View.GONE
+            et2factor.visibility = View.VISIBLE
+            btn2Auth.visibility = View.VISIBLE
+        }
+        nonAuthToken = state.jwtToken.toString()
+    }
 
     override fun createStore(): Store<Event, Effect, State> = authStore
 }

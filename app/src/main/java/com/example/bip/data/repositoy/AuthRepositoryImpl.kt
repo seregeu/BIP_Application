@@ -3,6 +3,7 @@ package com.example.bip.data.repositoy
 import com.example.bip.data.db.dao.AuthDao
 import com.example.bip.data.entity.AuthBody
 import com.example.bip.data.entity.AuthEntity
+import com.example.bip.data.entity.AuthSecondEntity
 import com.example.bip.data.mapper.UserDtoToData
 import com.example.bip.data.network.ApiService
 import com.example.bip.domain.entity.AuthData
@@ -19,12 +20,16 @@ class AuthRepositoryImpl @Inject constructor(
     @Inject
     lateinit var userDtoToData: UserDtoToData
 
-    override fun authUser(authData: AuthData): Completable {
+    override fun authUser(authData: AuthData): Single<String> {
         return authData.run {
             apiService.authUser(AuthBody(username = username, password = password))
-                .flatMapCompletable {
-                    authDao.insertAuthData(AuthEntity(id = it.user.id, token = it.jwt))
-                }
+                .map { it.jwt }
+        }
+    }
+
+    override fun secondAuth(code: String): Completable {
+        return apiService.auth2Fa(AuthSecondEntity(code)).flatMapCompletable {
+            authDao.insertAuthData(AuthEntity(id = it.user.id, token = it.jwt))
         }
     }
 

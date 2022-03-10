@@ -19,4 +19,8 @@ interface UseCaseModule {
     @Reusable
     @Binds
     fun bindGetToken(getTokenUseCase: GetTokenUseCaseImpl): GetTokenUseCase
+
+    @Reusable
+    @Binds
+    fun bindAuth2Fa(auth2FaUseCase: Auth2FaUseCaseImpl): Auth2FaUseCase
 }

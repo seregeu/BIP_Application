@@ -10,3 +10,9 @@ data class AuthResponse(
     @SerialName("user")
     val user: UserDto
 )
+
+@Serializable
+data class AuthResponseFirst(
+    @SerialName("jwt")
+    val jwt: String
+)

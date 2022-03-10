@@ -6,20 +6,26 @@ import javax.inject.Inject
 class AuthReducer @Inject constructor() : DslReducer<Event, State, Effect, Command>() {
 
     override fun Result.reduce(event: Event) = when (event) {
-        Event.Internal.ErrorAuth -> {
-            effects { +Effect.ErrorAuth }
+        is Event.Internal.ErrorAuth -> {
+            effects { +Effect.ErrorAuth(event.error) }
         }
-        Event.Internal.SuccessAuth -> {
-            effects { +Effect.SuccessAuth }
+        is Event.Internal.SuccessGetNonAuthToken -> {
+            state { copy(jwtToken = event.token, isSuccess = true) }
         }
         is Event.Internal.SuccessGetToken -> {
             successAuth(event.token)
         }
+        is Event.Internal.ErrorAuth2Fa -> {
+            effects { +Effect.ErrorAuth(IllegalArgumentException("auth2fa error token")) }
+        }
         Event.Ui.CheckDatabase -> {
             commands { +Command.CheckIsAuth }
         }
-        is Event.Ui.PressButton -> with(event) {
-            commands { +Command.AuthUser(event.username, password) }
+        is Event.Ui.PressAuthButton -> with(event) {
+            commands { +Command.AuthUser(username, password) }
+        }
+        is Event.Ui.PressAuth2FaButton -> with(event) {
+            commands { +Command.Auth2Fa(event.code) }
         }
     }
 
@@ -27,7 +33,7 @@ class AuthReducer @Inject constructor() : DslReducer<Event, State, Effect, Comma
         if (apiToken.isNotEmpty()) {
             effects { +Effect.SuccessAuth }
         } else {
-            effects { +Effect.ErrorAuth }
+            effects { +Effect.ErrorAuth(IllegalArgumentException("required token")) }
         }
     }
 }

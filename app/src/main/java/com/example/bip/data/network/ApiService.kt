@@ -1,9 +1,7 @@
 package com.example.bip.data.network
 
 import com.example.bip.data.db.dao.AuthDao
-import com.example.bip.data.entity.AuthBody
-import com.example.bip.data.entity.AuthResponse
-import com.example.bip.data.entity.UserEntity
+import com.example.bip.data.entity.*
 import com.example.bip.data.network.utils.NetworkConstants.BASE_URL
 import com.example.bip.data.network.utils.addJsonConverter
 import com.example.bip.data.network.utils.setClient
@@ -21,7 +19,10 @@ interface ApiService {
     fun registerUser(@Body userEntity: UserEntity): Completable
 
     @POST("api/auth")
-    fun authUser(@Body authBody: AuthBody): Single<AuthResponse>
+    fun authUser(@Body authBody: AuthBody): Single<AuthResponseFirst>
+
+    @POST("api/auth2fa")
+    fun auth2Fa(@Body authSecondEntity: AuthSecondEntity): Single<AuthResponse>
 
     companion object {
         fun create(authDao: AuthDao): ApiService {
