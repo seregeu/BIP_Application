@@ -23,7 +23,11 @@ class AuthRepositoryImpl @Inject constructor(
     override fun authUser(authData: AuthData): Single<String> {
         return authData.run {
             apiService.authUser(AuthBody(username = username, password = password))
-                .map { it.jwt }
+                .flatMap { authResponse ->
+                    authDao.insertAuthData(AuthEntity(id = 0, token = authResponse.jwt)).toSingle {
+                        authResponse.jwt
+                    }
+                }
         }
     }
 
