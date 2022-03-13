@@ -24,7 +24,9 @@ class AuthRepositoryImpl @Inject constructor(
         return authData.run {
             apiService.authUser(AuthBody(username = username, password = password))
                 .flatMap { authResponse ->
-                    authDao.insertAuthData(AuthEntity(id = 0, token = authResponse.jwt)).toSingle {
+                    authDao.delete().andThen {
+                        authDao.insertAuthData(AuthEntity(id = 0, token = authResponse.jwt))
+                    }.toSingle {
                         authResponse.jwt
                     }
                 }
@@ -32,8 +34,15 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override fun secondAuth(code: String): Completable {
-        return apiService.auth2Fa(AuthSecondEntity(code)).flatMapCompletable {
-            authDao.insertAuthData(AuthEntity(id = it.user.id, token = it.jwt))
+        return apiService.auth2Fa(AuthSecondEntity(code)).flatMapCompletable { authResponse ->
+            authDao.delete().andThen {
+                authDao.insertAuthData(
+                    AuthEntity(
+                        id = authResponse.user.id,
+                        token = authResponse.jwt
+                    )
+                )
+            }
         }
     }
 
