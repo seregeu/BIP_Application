@@ -20,29 +20,19 @@ class AuthRepositoryImpl @Inject constructor(
     @Inject
     lateinit var userDtoToData: UserDtoToData
 
-    override fun authUser(authData: AuthData): Single<String> {
+    override fun authUser(authData: AuthData): Completable {
         return authData.run {
             apiService.authUser(AuthBody(username = username, password = password))
-                .flatMap { authResponse ->
-                    authDao.delete().andThen {
-                        authDao.insertAuthData(AuthEntity(id = 0, token = authResponse.jwt))
-                    }.toSingle {
-                        authResponse.jwt
-                    }
+                .flatMapCompletable {
+                    authDao.insertAndDelete(AuthEntity(id = 0, token = it.jwt))
                 }
         }
     }
 
+
     override fun secondAuth(code: String): Completable {
-        return apiService.auth2Fa(AuthSecondEntity(code)).flatMapCompletable { authResponse ->
-            authDao.delete().andThen {
-                authDao.insertAuthData(
-                    AuthEntity(
-                        id = authResponse.user.id,
-                        token = authResponse.jwt
-                    )
-                )
-            }
+        return apiService.auth2Fa(AuthSecondEntity(code)).flatMapCompletable {
+            authDao.insertAndDelete(AuthEntity(id = it.user.id, token = it.jwt))
         }
     }
 

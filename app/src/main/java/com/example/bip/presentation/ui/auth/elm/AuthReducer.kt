@@ -13,10 +13,10 @@ class AuthReducer @Inject constructor() : DslReducer<Event, State, Effect, Comma
             state { copy(jwtToken = event.token, isSuccess = true) }
         }
         is Event.Internal.SuccessGetToken -> {
-            successAuth(event.token)
+            effects { +Effect.SuccessAuth }
         }
         is Event.Internal.ErrorAuth2Fa -> {
-            effects { +Effect.ErrorAuth(IllegalArgumentException("auth2fa error token")) }
+            effects { +Effect.ErrorAuth(event.error) }
         }
         Event.Ui.CheckDatabase -> {
             commands { +Command.CheckIsAuth }

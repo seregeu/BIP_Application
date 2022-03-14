@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 interface AuthRepository {
 
-    fun authUser(authData: AuthData): Single<String>
+    fun authUser(authData: AuthData): Completable
 
     fun secondAuth(code: String): Completable
 

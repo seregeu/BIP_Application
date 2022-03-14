@@ -18,14 +18,14 @@ sealed class Event {
     sealed class Ui : Event() {
         class PressAuthButton(val username: String, val password: String) : Ui()
         object CheckDatabase : Ui()
-        class PressAuth2FaButton(val code: String): Ui()
+        class PressAuth2FaButton(val code: String) : Ui()
     }
 
     sealed class Internal : Event() {
-        class SuccessGetToken(val token: String) : Internal()
+        object SuccessGetToken : Internal()
         class SuccessGetNonAuthToken(val token: String) : Internal()
         class ErrorAuth(val error: Throwable) : Internal()
-        object ErrorAuth2Fa: Internal()
+        class ErrorAuth2Fa(val error: Throwable) : Internal()
     }
 }
 

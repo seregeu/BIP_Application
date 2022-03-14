@@ -17,24 +17,24 @@ class AuthActor(
         is Command.AuthUser -> with(command) {
             authUseCase(AuthData(username = username, password = password))
                 .mapEvents(
-                    { token -> Event.Internal.SuccessGetNonAuthToken(token) },
-                    { error -> Event.Internal.ErrorAuth(error) }
-                )
+                    successEvent = Event.Internal.SuccessGetNonAuthToken("")
+                ) { error -> Event.Internal.ErrorAuth(error) }
 
         }
         Command.CheckIsAuth -> {
             getTokenUseCase()
                 .mapEvents(
-                    { token -> Event.Internal.SuccessGetToken(token) },
+                    { _ -> Event.Internal.SuccessGetToken },
                     { error -> Event.Internal.ErrorAuth(error) }
                 )
         }
         is Command.Auth2Fa -> {
             auth2FaUseCase(command.code)
                 .mapEvents(
-                    successEvent = Event.Internal.ErrorAuth2Fa,
-                    failureEvent = Event.Internal.ErrorAuth2Fa
-                )
+                    successEvent = Event.Internal.SuccessGetToken
+                ) { errror ->
+                    Event.Internal.ErrorAuth(errror)
+                }
         }
     }
 }
