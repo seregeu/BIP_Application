@@ -8,5 +8,7 @@ interface AuthRepository {
 
     fun authUser(authData: AuthData): Completable
 
+    fun secondAuth(code: String): Completable
+
     fun getTokenUseCase(): Single<String>
 }

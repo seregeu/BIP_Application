@@ -52,6 +52,7 @@
                 android:hint="@string/hint_login_username"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,15 +65,30 @@
                 android:hint="@string/hint_login_password"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etUsername" />
 
+            <EditText
+                android:id="@+id/et2factor"
+                style="@style/LoginEditTextStyle"
+                android:layout_marginTop="@dimen/login_welcome_password_margin_top"
+                android:hint="@string/hint_code_from_mail"
+                android:visibility="gone"
+                android:importantForAutofill="no"
+                android:inputType="text|number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 style="@style/ButtonStyle"
                 android:text="@string/btn_string"
+                android:visibility="visible"
                 app:backgroundTint="@color/send_box_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,12 +101,26 @@
                 android:id="@+id/btnAuth"
                 style="@style/ButtonStyle"
                 android:text="@string/btn_sign_up_string"
+                android:visibility="visible"
                 app:backgroundTint="@color/send_box_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnLogin"
                 app:layout_constraintVertical_bias="0.6" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn2Auth"
+                style="@style/ButtonStyle"
+                android:text="@string/btn_check_string"
+                android:visibility="gone"
+                app:backgroundTint="@color/send_box_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et2factor"
+                app:layout_constraintVertical_bias="0.4" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

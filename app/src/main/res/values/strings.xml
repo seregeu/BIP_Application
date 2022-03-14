@@ -27,4 +27,6 @@
     <string name="avatar_url">Avatar Url</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="hint_code_from_mail">Enter code</string>
+    <string name="btn_check_string">Check</string>
 </resources>

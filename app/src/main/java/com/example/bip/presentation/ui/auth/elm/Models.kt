@@ -16,23 +16,26 @@ data class State(
 sealed class Event {
 
     sealed class Ui : Event() {
-        class PressButton(val username: String, val password: String) : Ui()
+        class PressAuthButton(val username: String, val password: String) : Ui()
         object CheckDatabase : Ui()
+        class PressAuth2FaButton(val code: String) : Ui()
     }
 
     sealed class Internal : Event() {
-        class SuccessGetToken(val token: String) : Internal()
-        object SuccessAuth : Internal()
-        object ErrorAuth : Internal()
+        object SuccessGetToken : Internal()
+        class SuccessGetNonAuthToken(val token: String) : Internal()
+        class ErrorAuth(val error: Throwable) : Internal()
+        class ErrorAuth2Fa(val error: Throwable) : Internal()
     }
 }
 
 sealed class Effect {
     object SuccessAuth : Effect()
-    object ErrorAuth : Effect()
+    class ErrorAuth(val error: Throwable) : Effect()
 }
 
 sealed class Command {
     class AuthUser(val username: String, val password: String) : Command()
+    class Auth2Fa(val code: String) : Command()
     object CheckIsAuth : Command()
 }

@@ -46,18 +46,23 @@ abstract class AuthBaseFragment : ElmFragment<Event, Effect, State>() {
         initButton()
     }
 
-    private fun initButton() {
-        binding.btnLogin.setOnClickListener {
+    private fun initButton() = with(binding) {
+        btnLogin.setOnClickListener {
             authAction()
         }
-        binding.btnAuth.setOnClickListener {
+        btnAuth.setOnClickListener {
             signUp()
+        }
+        btn2Auth.setOnClickListener {
+            auth2FaAction()
         }
     }
 
     protected abstract fun authAction()
 
     protected abstract fun signUp()
+
+    protected abstract fun auth2FaAction()
 
     override fun onDetach() {
         super.onDetach()

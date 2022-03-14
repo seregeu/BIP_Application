@@ -1,9 +1,6 @@
 package com.example.bip.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.bip.data.entity.AuthEntity
 import io.reactivex.Completable
 
@@ -13,8 +10,19 @@ interface AuthDao {
     fun getToken(): String?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAuthData(authEntity: AuthEntity): Completable
+    fun insertAuthData(authEntity: AuthEntity)
 
     @Query("DELETE FROM auth")
-    fun delete(): Completable
+    fun delete(): Int
+
+    @Transaction
+    fun insertAndDeleteSynchronized(authEntity: AuthEntity) {
+        delete()
+        insertAuthData(authEntity)
+    }
+
+    fun insertAndDelete(authEntity: AuthEntity): Completable {
+        insertAndDeleteSynchronized(authEntity)
+        return Completable.complete()
+    }
 }
