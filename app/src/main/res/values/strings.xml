@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Photomoney</string>
+    <string name="app_name">PhotoMoney</string>
     <string name="offers_string">Offers</string>
     <string name="service_string">Services</string>
     <string name="profile_string">Profile</string>
@@ -29,4 +29,12 @@
     <string name="password">Password</string>
     <string name="hint_code_from_mail">Enter code</string>
     <string name="btn_check_string">Check</string>
+    <string name="ye_sym">₽</string>
+    <string name="make_photo">Создать заказ</string>
+    <string name="select_photo">Выбрать заказ</string>
+    <string name="generate_qr_code">Сгенерировать QR код</string>
+    <string name="scan_qr_code">Сканировать QR код</string>
+    <string name="show_photo_list">Посмотреть список фотографов</string>
+    <string name="add_money">Пополнить счёт</string>
+    <string name="get_money">Вывести деньги</string>
 </resources>

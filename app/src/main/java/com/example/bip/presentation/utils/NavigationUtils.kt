@@ -29,12 +29,12 @@ fun AppCompatActivity.addFragment(customFragmentFactory: CustomFragmentFactory) 
     ) {
         addFragmentWithoutBackstack(customFragmentFactory = customFragmentFactory)
         return
-    }/*
+    }
+    val tag = customFragmentFactory.fragmentTag
     supportFragmentManager.popBackStack(tag.value, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     supportFragmentManager.beginTransaction()
         .replace(R.id.nav_host_fragment, customFragmentFactory.fragment, tag.value)
         .addToBackStack(tag.value)
         .commit()
 
-     */
 }

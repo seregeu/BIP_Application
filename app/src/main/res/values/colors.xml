@@ -33,4 +33,5 @@
     <color name="custom_login_back">#F1F1F1</color>
     <color name="shimmer_layout_color">#3e3c3c</color>
     <color name="email_color">#A1A1A1</color>
+    <color name="main_color">#6495ED</color>
 </resources>

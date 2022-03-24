@@ -7,3 +7,6 @@ annotation class AuthScope
 
 @Scope
 annotation class RegisterScope
+
+@Scope
+annotation class MainScreenScope

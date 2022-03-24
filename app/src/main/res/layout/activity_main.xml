@@ -17,7 +17,7 @@
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_navigation_height"
-        android:background="@color/send_box_color"
+        android:background="@color/main_color"
         app:itemIconTint="@drawable/bottom_nav_view_color"
         app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/BottomNavigationView"

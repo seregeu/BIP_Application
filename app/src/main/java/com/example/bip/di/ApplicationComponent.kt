@@ -6,6 +6,7 @@ import com.example.bip.di.modules.NetworkModule
 import com.example.bip.di.modules.RepositoryModule
 import com.example.bip.di.modules.UseCaseModule
 import com.example.bip.di.subcomponents.AuthComponent
+import com.example.bip.di.subcomponents.MainScreenComponent
 import com.example.bip.di.subcomponents.RegistrationComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -20,6 +21,8 @@ interface ApplicationComponent {
     fun authComponent(): AuthComponent
 
     fun registerComponent(): RegistrationComponent
+
+    fun mainScreenComponent(): MainScreenComponent
 
     @Component.Factory
     interface Factory {

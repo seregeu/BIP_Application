@@ -51,6 +51,9 @@ class AuthFragment : AuthBaseFragment() {
         }
         is Effect.SuccessAuth -> {
             showToast("Success auth")
+            navigateController?.navigateFragment(
+                customFragmentFactory = CustomFragmentFactory.create(FragmentTag.MAIN_SCREEN_FRAGMENT)
+            )
         }
     }
 
