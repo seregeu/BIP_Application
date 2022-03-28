@@ -9,4 +9,7 @@ annotation class AuthScope
 annotation class RegisterScope
 
 @Scope
-annotation class MainScreenScope
+annotation class MainClientScreenScope
+
+@Scope
+annotation class MainPhotographerScope

@@ -2,12 +2,12 @@ package com.example.bip.presentation.ui.mainscreen.elm
 
 import android.content.res.Resources
 import android.os.Parcelable
+import com.example.bip.presentation.ui.mainscreen.entity.ConfigUI
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class State(
-    val jwtToken: @RawValue Any = Any(),
+    val configUI: ConfigUI,
     val error: Throwable? = null,
     val isSuccess: Boolean = false,
     val isError: Boolean = false,

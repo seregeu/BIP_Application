@@ -18,9 +18,13 @@ class UserDto(
     @SerialName("phone_number")
     val phoneNumber: String,
     @SerialName("mail")
-    val mail: String,
+    val mail: String? = null,
     @SerialName("username")
     val username: String,
     @SerialName("password")
-    val password: String
+    val password: String? = null,
+    @SerialName("comment")
+    val comments: List<CommentDto>? = null,
+    @SerialName("list_photo_profile")
+    val photoProfile: List<String>? = null,
 )

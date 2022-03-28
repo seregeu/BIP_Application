@@ -5,16 +5,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.bip.App
 import com.example.bip.data.db.dao.AuthDao
+import com.example.bip.data.db.dao.UserDao
 import com.example.bip.data.entity.AuthEntity
+import com.example.bip.data.entity.UserDbEntity
 
 @Database(
     entities = [
-        AuthEntity::class
+        AuthEntity::class,
+        UserDbEntity::class,
     ],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun apiKeyDao(): AuthDao
+    abstract fun userDao(): UserDao
 
     companion object {
         private const val DATABASE_NAME = "PhotoMoney.db"

@@ -11,8 +11,9 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.http.Body
-import retrofit2.http.Header
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -24,6 +25,9 @@ interface ApiService {
 
     @POST("api/auth2fa")
     fun auth2Fa(@Body authSecondEntity: AuthSecondEntity): Single<AuthResponse>
+
+    @GET("api/profile")
+    fun getUserProfile(@Query("id_user") userId: String): Single<UserDto>
 
     companion object {
         fun create(authDao: AuthDao): ApiService {

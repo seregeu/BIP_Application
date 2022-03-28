@@ -9,13 +9,14 @@ import com.example.bip.presentation.ui.mainscreen.elm.State
 import vivid.money.elmslie.core.store.Store
 import javax.inject.Inject
 
-class MainScreenFragment : BaseMainScreenFragment() {
+class MainPhotographerScreenFragment : BaseMainScreenFragment() {
+
     @Inject
     internal lateinit var mainScreenStore: Store<Event, Effect, State>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.appComponent.mainScreenComponent().inject(this)
+        App.appComponent.mainPhotographerScreenComponent().inject(this)
     }
 
     override fun notifyOpenAction() {
@@ -39,18 +40,14 @@ class MainScreenFragment : BaseMainScreenFragment() {
     }
 
     override val initEvent: Event
-        get() = Event.Ui.InitButtonText(resources, false)
+        get() = Event.Ui.InitButtonText(resources, true)
 
     override fun createStore(): Store<Event, Effect, State> = mainScreenStore
 
-    override fun render(state: State) {
-    }
-
-    override fun handleEffect(effect: Effect) = when (effect) {
-        is Effect.InitButtonText -> with(binding) {
-            btnCreteOrder.text = effect.buttonTexts.firstOrNull()
-            tvQrCode.text = effect.buttonTexts[1]
-            tvAddMoney.text = effect.buttonTexts[2]
-        }
+    override fun render(state: State) = with(binding) {
+        if (!state.isSuccess) return@with
+        btnCreteOrder.text = state.configUI.mainButton
+        tvQrCode.text = state.configUI.qrCodeAction
+        tvAddMoney.text = state.configUI.money
     }
 }

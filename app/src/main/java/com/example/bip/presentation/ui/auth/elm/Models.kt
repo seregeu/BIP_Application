@@ -1,6 +1,7 @@
 package com.example.bip.presentation.ui.auth.elm
 
 import android.os.Parcelable
+import com.example.bip.domain.entity.UserData
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -22,15 +23,18 @@ sealed class Event {
     }
 
     sealed class Internal : Event() {
-        object SuccessGetToken : Internal()
-        class SuccessGetNonAuthToken(val token: String) : Internal()
+        class SuccessAuth(val userEntity: UserData) : Internal()
+        object SuccessGetNonAuthToken : Internal()
+        object SuccessAuthToken : Internal()
         class ErrorAuth(val error: Throwable) : Internal()
         class ErrorAuth2Fa(val error: Throwable) : Internal()
     }
 }
 
 sealed class Effect {
-    object SuccessAuth : Effect()
+    object SuccessNonAuthToken : Effect()
+    object SuccessAuthToken : Effect()
+    class SuccessGetUserData(val userData: UserData) : Effect()
     class ErrorAuth(val error: Throwable) : Effect()
 }
 

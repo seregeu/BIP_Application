@@ -18,7 +18,7 @@ interface UseCaseModule {
 
     @Reusable
     @Binds
-    fun bindGetToken(getTokenUseCase: GetTokenUseCaseImpl): GetTokenUseCase
+    fun bindGetProfileUseCase(getProfileUseCase: GetProfileUseCaseImpl): GetProfileUseCase
 
     @Reusable
     @Binds
