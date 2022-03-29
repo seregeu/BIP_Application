@@ -3,7 +3,7 @@ package com.example.bip.di.modules
 import com.example.bip.di.AuthScope
 import com.example.bip.domain.usecase.Auth2FaUseCase
 import com.example.bip.domain.usecase.AuthUseCase
-import com.example.bip.domain.usecase.GetTokenUseCase
+import com.example.bip.domain.usecase.GetProfileUseCase
 import com.example.bip.presentation.ui.auth.elm.*
 import dagger.Module
 import dagger.Provides
@@ -16,10 +16,10 @@ class AuthModule {
     @Provides
     fun provideAuthActor(
         authUseCase: AuthUseCase,
-        getTokenUseCase: GetTokenUseCase,
+        getProfileUseCase: GetProfileUseCase,
         auth2FaUseCase: Auth2FaUseCase
     ): AuthActor {
-        return AuthActor(authUseCase, getTokenUseCase, auth2FaUseCase)
+        return AuthActor(authUseCase, getProfileUseCase, auth2FaUseCase)
     }
 
     @AuthScope

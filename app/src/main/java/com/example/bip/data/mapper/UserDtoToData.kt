@@ -13,9 +13,9 @@ class UserDtoToData @Inject constructor() : (UserDto) -> (UserData) {
             isPhotographer = isPhotographer,
             avatarUrl = avatarUrl,
             phoneNumber = phoneNumber,
-            mail = mail,
+            mail = mail ?: "",
             username = username,
-            password = password
+            password = password ?: ""
         )
     }
 }

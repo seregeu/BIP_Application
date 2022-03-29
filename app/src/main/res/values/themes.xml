@@ -31,8 +31,8 @@
     </style>
 
     <style name="ButtonStyle">
-        <item name="android:layout_width">184dp</item>
-        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_width">164dp</item>
+        <item name="android:layout_height">42dp</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:background">@drawable/logout_button_selector</item>
         <item name="android:textSize">18sp</item>

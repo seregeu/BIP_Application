@@ -10,13 +10,16 @@ class AuthReducer @Inject constructor() : DslReducer<Event, State, Effect, Comma
             effects { +Effect.ErrorAuth(event.error) }
         }
         is Event.Internal.SuccessGetNonAuthToken -> {
-            state { copy(jwtToken = event.token, isSuccess = true) }
+            effects { +Effect.SuccessNonAuthToken }
         }
-        is Event.Internal.SuccessGetToken -> {
-            effects { +Effect.SuccessAuth }
+        is Event.Internal.SuccessAuthToken -> {
+            effects { +Effect.SuccessAuthToken }
         }
         is Event.Internal.ErrorAuth2Fa -> {
             effects { +Effect.ErrorAuth(event.error) }
+        }
+        is Event.Internal.SuccessAuth -> {
+            effects { +Effect.SuccessGetUserData(event.userEntity) }
         }
         Event.Ui.CheckDatabase -> {
             commands { +Command.CheckIsAuth }
@@ -25,15 +28,7 @@ class AuthReducer @Inject constructor() : DslReducer<Event, State, Effect, Comma
             commands { +Command.AuthUser(username, password) }
         }
         is Event.Ui.PressAuth2FaButton -> with(event) {
-            commands { +Command.Auth2Fa(event.code) }
-        }
-    }
-
-    private fun Result.successAuth(apiToken: String) {
-        if (apiToken.isNotEmpty()) {
-            effects { +Effect.SuccessAuth }
-        } else {
-            effects { +Effect.ErrorAuth(IllegalArgumentException("required token")) }
+            commands { +Command.Auth2Fa(code) }
         }
     }
 }

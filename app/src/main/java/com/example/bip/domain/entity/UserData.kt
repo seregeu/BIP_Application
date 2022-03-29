@@ -8,7 +8,8 @@ class UserData(
     val phoneNumber: String,
     val mail: String,
     val username: String,
-    val password: String
+    val password: String,
+    val jwtToken: String = ""
 ) {
     class Builder(
         var firstName: String = "",

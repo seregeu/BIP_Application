@@ -18,8 +18,6 @@ class AuthFragment : AuthBaseFragment() {
     @Inject
     internal lateinit var authStore: Store<Event, Effect, State>
 
-    private var nonAuthToken = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.appComponent.authComponent().inject(this)
@@ -49,23 +47,30 @@ class AuthFragment : AuthBaseFragment() {
         is Effect.ErrorAuth -> {
             showToast(effect.error.message)
         }
-        is Effect.SuccessAuth -> {
-            showToast("Success auth")
+        Effect.SuccessAuthToken -> {
+            store.accept(Event.Ui.CheckDatabase)
+        }
+        is Effect.SuccessGetUserData -> {
+            val needFragmentTag = if (effect.userData.isPhotographer) {
+                FragmentTag.MAIN_PHOTOGRAPHER_SCREEN_FRAGMENT
+            } else {
+                FragmentTag.MAIN_CLIENT_SCREEN_FRAGMENT
+            }
+            navigateController?.navigateFragment(CustomFragmentFactory.create(needFragmentTag))
+        }
+        Effect.SuccessNonAuthToken -> {
+            with(binding) {
+                btnAuth.visibility = View.GONE
+                btnLogin.visibility = View.GONE
+                etPassword.visibility = View.GONE
+                etUsername.visibility = View.GONE
+                et2factor.visibility = View.VISIBLE
+                btn2Auth.visibility = View.VISIBLE
+            }
         }
     }
 
-    override fun render(state: State) {
-        if (!state.isSuccess) return
-        with(binding) {
-            btnAuth.visibility = View.GONE
-            btnLogin.visibility = View.GONE
-            etPassword.visibility = View.GONE
-            etUsername.visibility = View.GONE
-            et2factor.visibility = View.VISIBLE
-            btn2Auth.visibility = View.VISIBLE
-        }
-        nonAuthToken = state.jwtToken.toString()
-    }
+    override fun render(state: State) {}
 
     override fun createStore(): Store<Event, Effect, State> = authStore
 }
