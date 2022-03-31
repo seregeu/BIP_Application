@@ -49,11 +49,12 @@ ext {
     retrofitVersion = '2.9.0'
     kotlinVersion = '1.5.0'
     retrofitAdapterVersion = '2.9.0'
-    roomVersion = '2.3.0'
+    roomVersion = '2.4.0-alpha03'
     roomRuntimeVersion = '1.1.1'
     desugarJDKVersion = '1.1.5'
     elmsilieVersion = '1.2.0'
     daggerVersion = '2.37'
     junitVersion = '4.13.2'
     mockitoVersion = '3.0.0'
+
 }
