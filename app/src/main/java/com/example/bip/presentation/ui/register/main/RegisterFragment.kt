@@ -8,9 +8,7 @@ import com.example.bip.presentation.ui.register.BaseRegisterFragment
 import com.example.bip.presentation.ui.register.elm.Effect
 import com.example.bip.presentation.ui.register.elm.Event
 import com.example.bip.presentation.ui.register.elm.State
-import com.example.bip.presentation.utils.CustomFragmentFactory
-import com.example.bip.presentation.utils.FragmentTag
-import com.example.bip.presentation.utils.showToast
+import com.example.bip.presentation.utils.*
 import vivid.money.elmslie.core.store.Store
 import javax.inject.Inject
 
@@ -78,6 +76,24 @@ class RegisterFragment : BaseRegisterFragment() {
         is Effect.SuccessRegister -> {
             navigationController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.AUTH_FRAGMENT_TAG))
         }
+    }
+
+    override fun initDataFieldsListeners() {
+        val btnCreate = binding.btnCreate
+        binding.etFirstName.apply { addTextChangedListener(RegisterTextWatcher(this,
+            RegisterDataValidator.ValidatorType.TYPE_FIRST_NAME,btnCreate)) }
+        binding.etSecondName.apply { addTextChangedListener(RegisterTextWatcher(this,
+            RegisterDataValidator.ValidatorType.TYPE_SECOND_NAME,btnCreate)) }
+        binding.etAvatarUrl.apply { addTextChangedListener(RegisterTextWatcher(this,
+            RegisterDataValidator.ValidatorType.TYPE_AVATAR_URL,btnCreate)) }
+        binding.etPhoneNumber.apply { addTextChangedListener(RegisterTextWatcher(this,
+            RegisterDataValidator.ValidatorType.TYPE_PHONE_NUMBER,btnCreate)) }
+        binding.etMail.apply { addTextChangedListener(RegisterTextWatcher(this,
+            RegisterDataValidator.ValidatorType.TYPE_MAIL,btnCreate)) }
+        binding.etUsername.apply { addTextChangedListener(RegisterTextWatcher(this,
+            RegisterDataValidator.ValidatorType.TYPE_USERNAME,btnCreate)) }
+        binding.etPassword.apply { addTextChangedListener(RegisterTextWatcher(this,
+            RegisterDataValidator.ValidatorType.TYPE_PASSWORD,btnCreate)) }
     }
 
     private fun getDataFromFields(): UserData {
