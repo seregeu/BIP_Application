@@ -1,7 +1,10 @@
 package com.example.bip.presentation.ui.register.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import com.example.bip.App
 import com.example.bip.domain.entity.UserData
 import com.example.bip.presentation.ui.register.BaseRegisterFragment
@@ -9,10 +12,12 @@ import com.example.bip.presentation.ui.register.elm.Effect
 import com.example.bip.presentation.ui.register.elm.Event
 import com.example.bip.presentation.ui.register.elm.State
 import com.example.bip.presentation.utils.*
+import com.example.bip.presentation.utils.validation.InputTextWatcher
+import com.example.bip.presentation.utils.validation.ValidatorType
 import vivid.money.elmslie.core.store.Store
 import javax.inject.Inject
 
-class RegisterFragment : BaseRegisterFragment() {
+class RegisterFragment : BaseRegisterFragment(){
 
     private lateinit var userData: UserData
 
@@ -37,9 +42,12 @@ class RegisterFragment : BaseRegisterFragment() {
     }
 
     override fun initCreateStreamButton() {
-        binding.btnCreate.setOnClickListener {
-            userData = getDataFromFields()
-            store.accept(Event.Ui.RegisterUser(userData))
+        binding.btnCreate.apply {
+            setOnClickListener {
+                userData = getDataFromFields()
+                store.accept(Event.Ui.RegisterUser(userData))
+            }
+            isClickable = false
         }
     }
 
@@ -78,22 +86,35 @@ class RegisterFragment : BaseRegisterFragment() {
         }
     }
 
+    fun setFieldAndButton(flag: Boolean, field: TextView, actionButton:Button){
+        if (flag) {
+            field.setTextColor(Color.RED)
+            actionButton.isClickable = false
+        } else {
+            field.setTextColor(Color.WHITE)
+            actionButton.isClickable = true
+        }
+    }
+
+    fun TextView.addValidatorTextWatchListener(type: ValidatorType, actionButton: Button){
+        this.apply {
+            addTextChangedListener(
+                InputTextWatcher(type){
+                        flag ->setFieldAndButton(flag,this, actionButton)
+                }
+            )
+        }
+    }
+
     override fun initDataFieldsListeners() {
         val btnCreate = binding.btnCreate
-        binding.etFirstName.apply { addTextChangedListener(RegisterTextWatcher(this,
-            RegisterDataValidator.ValidatorType.TYPE_FIRST_NAME,btnCreate)) }
-        binding.etSecondName.apply { addTextChangedListener(RegisterTextWatcher(this,
-            RegisterDataValidator.ValidatorType.TYPE_SECOND_NAME,btnCreate)) }
-        binding.etAvatarUrl.apply { addTextChangedListener(RegisterTextWatcher(this,
-            RegisterDataValidator.ValidatorType.TYPE_AVATAR_URL,btnCreate)) }
-        binding.etPhoneNumber.apply { addTextChangedListener(RegisterTextWatcher(this,
-            RegisterDataValidator.ValidatorType.TYPE_PHONE_NUMBER,btnCreate)) }
-        binding.etMail.apply { addTextChangedListener(RegisterTextWatcher(this,
-            RegisterDataValidator.ValidatorType.TYPE_MAIL,btnCreate)) }
-        binding.etUsername.apply { addTextChangedListener(RegisterTextWatcher(this,
-            RegisterDataValidator.ValidatorType.TYPE_USERNAME,btnCreate)) }
-        binding.etPassword.apply { addTextChangedListener(RegisterTextWatcher(this,
-            RegisterDataValidator.ValidatorType.TYPE_PASSWORD,btnCreate)) }
+        binding.etFirstName.addValidatorTextWatchListener(ValidatorType.TYPE_FIRST_NAME, btnCreate)
+        binding.etSecondName.addValidatorTextWatchListener(ValidatorType.TYPE_SECOND_NAME, btnCreate)
+        binding.etAvatarUrl.addValidatorTextWatchListener(ValidatorType.TYPE_AVATAR_URL, btnCreate)
+        binding.etPhoneNumber.addValidatorTextWatchListener(ValidatorType.TYPE_PHONE_NUMBER, btnCreate)
+        binding.etMail.addValidatorTextWatchListener(ValidatorType.TYPE_MAIL, btnCreate)
+        binding.etUsername.addValidatorTextWatchListener(ValidatorType.TYPE_USERNAME, btnCreate)
+        binding.etPassword.addValidatorTextWatchListener(ValidatorType.TYPE_PASSWORD, btnCreate)
     }
 
     private fun getDataFromFields(): UserData {
