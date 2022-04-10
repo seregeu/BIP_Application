@@ -14,7 +14,7 @@ class InputDataValidator: (String, ValidatorType) -> (Boolean){
 
     private val USERNAME_PATTERN: String = "[a-zA-Z0-9]+";
     private val NAME_PATTERN: String = "[a-zA-Z]+";
-    private val EMAIL_PATTERN: String = "([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\\.[A-Z|a-z]{2,})+"
+    private val EMAIL_PATTERN: String = "([A-Za-z0-9]+[\\.\\-\\_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\\.[A-Z|a-z]{2,})+"
 
     fun validatePassword(input: String):Boolean{
         return input.length>=5
