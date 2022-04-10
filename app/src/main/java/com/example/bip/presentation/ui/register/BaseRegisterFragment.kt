@@ -39,6 +39,7 @@ abstract class BaseRegisterFragment : ElmFragment<Event, Effect, State>() {
         initErrorRepeat()
         initCreateStreamButton()
         initBackButton()
+        initDataFieldsListeners()
     }
 
     override fun onDetach() {
@@ -49,4 +50,5 @@ abstract class BaseRegisterFragment : ElmFragment<Event, Effect, State>() {
     abstract fun initBackButton()
     abstract fun initErrorRepeat()
     abstract fun initCreateStreamButton()
+    abstract fun initDataFieldsListeners()
 }
