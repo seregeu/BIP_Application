@@ -13,6 +13,8 @@ enum class ValidatorType{
 class InputDataValidator: (String, ValidatorType) -> (Boolean){
 
     private val USERNAME_PATTERN: String = "[a-zA-Z0-9]+";
+    private val NAME_PATTERN: String = "[a-zA-Z]+";
+    private val EMAIL_PATTERN: String = "([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\\.[A-Z|a-z]{2,})+"
 
     fun validatePassword(input: String):Boolean{
         return input.length>=5
@@ -24,7 +26,7 @@ class InputDataValidator: (String, ValidatorType) -> (Boolean){
     }
 
     private fun validateName(input: String):Boolean{
-        val passwordMatcher = Regex(USERNAME_PATTERN)
+        val passwordMatcher = Regex(NAME_PATTERN)
         return ((passwordMatcher.matches(input)) and (input.length in (1..15)))
     }
 
@@ -33,11 +35,14 @@ class InputDataValidator: (String, ValidatorType) -> (Boolean){
     }
 
     private fun validatePhoneNumber(input: String):Boolean{
-        return android.util.Patterns.PHONE.matcher(input).matches();
+        return ((android.util.Patterns.PHONE.matcher(input).matches())
+                and (input.length<=15));
     }
 
     private fun validateEmail(input: String):Boolean{
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches();
+        val passwordMatcher = Regex(EMAIL_PATTERN)
+        return (passwordMatcher.matches(input))
+        //return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches();
     }
 
     override fun invoke(input: String, type: ValidatorType): Boolean {
