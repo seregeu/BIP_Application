@@ -86,26 +86,6 @@ class RegisterFragment : BaseRegisterFragment(){
         }
     }
 
-    fun setFieldAndButton(flag: Boolean, field: TextView, actionButton:Button){
-        if (flag) {
-            field.setTextColor(Color.RED)
-            actionButton.isClickable = false
-        } else {
-            field.setTextColor(Color.WHITE)
-            actionButton.isClickable = true
-        }
-    }
-
-    fun TextView.addValidatorTextWatchListener(type: ValidatorType, actionButton: Button){
-        this.apply {
-            addTextChangedListener(
-                InputTextWatcher(type){
-                        flag ->setFieldAndButton(flag,this, actionButton)
-                }
-            )
-        }
-    }
-
     override fun initDataFieldsListeners() {
         val btnCreate = binding.btnCreate
         binding.etFirstName.addValidatorTextWatchListener(ValidatorType.TYPE_FIRST_NAME, btnCreate)
