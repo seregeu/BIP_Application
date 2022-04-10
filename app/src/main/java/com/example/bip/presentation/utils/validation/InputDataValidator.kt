@@ -42,7 +42,6 @@ class InputDataValidator: (String, ValidatorType) -> (Boolean){
     private fun validateEmail(input: String):Boolean{
         val passwordMatcher = Regex(EMAIL_PATTERN)
         return (passwordMatcher.matches(input))
-        //return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches();
     }
 
     override fun invoke(input: String, type: ValidatorType): Boolean {
