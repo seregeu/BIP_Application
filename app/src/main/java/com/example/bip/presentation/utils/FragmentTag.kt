@@ -4,5 +4,6 @@ enum class FragmentTag(val value: String) {
     AUTH_FRAGMENT_TAG("authFragment"),
     REGISTER_FRAGMENT_TAG("registerFragment"),
     MAIN_CLIENT_SCREEN_FRAGMENT("mainClientScreenFragment"),
-    MAIN_PHOTOGRAPHER_SCREEN_FRAGMENT("mainPhotographerScreenFragment")
+    MAIN_PHOTOGRAPHER_SCREEN_FRAGMENT("mainPhotographerScreenFragment"),
+    NOTIFICATION_CLIENT_SCREEN_FRAGMENT("notificationClientScreenFragment"),
 }

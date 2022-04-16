@@ -36,6 +36,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = composeVersion
+    }
 }
 
 dependencies {
@@ -68,6 +74,24 @@ dependencies {
     implementation "com.github.vivid-money.elmslie:elmslie-rxjava-2:$elmsilieVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+
+    implementation "androidx.compose.ui:ui:$composeVersion"
+    implementation "androidx.compose.ui:ui-tooling:$composeVersion"
+    implementation"androidx.compose.material:material:$composeVersion"
+    implementation "androidx.compose.material3:material3:$composeMaterial3"
+    implementation "androidx.compose.material:material-icons-extended:$composeVersion"
+    implementation "androidx.compose.runtime:runtime-livedata:$composeVersion"
+    implementation "androidx.constraintlayout:constraintlayout-compose:$constraintLayoutCompose"
+    implementation "androidx.paging:paging-compose:$pagingCompose"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleViewModelCompose"
+    implementation "androidx.activity:activity-compose:$activityCompose"
+    implementation "com.airbnb.android:lottie-compose:$lottie"
+    implementation "androidx.navigation:navigation-compose:$navCompose"
+
+
+
+    implementation "androidx.palette:palette-ktx:$paletteKtx"
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:$desugarJDKVersion")
 }
