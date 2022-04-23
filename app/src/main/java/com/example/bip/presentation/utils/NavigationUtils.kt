@@ -18,11 +18,6 @@ fun AppCompatActivity.addFragmentWithoutBackstack(customFragmentFactory: CustomF
 }
 
 fun AppCompatActivity.addFragment(customFragmentFactory: CustomFragmentFactory) {
-    /*val tag = customFragmentFactory.fragmentTag
-    if (tag == FragmentTag.STREAM_FRAGMENT_TAG) {
-        addFragmentWithoutBackstack(customFragmentFactory = customFragmentFactory)
-        return
-    }*/
     if (
         customFragmentFactory.fragmentTag == FragmentTag.AUTH_FRAGMENT_TAG ||
         customFragmentFactory.fragmentTag == FragmentTag.REGISTER_FRAGMENT_TAG ||

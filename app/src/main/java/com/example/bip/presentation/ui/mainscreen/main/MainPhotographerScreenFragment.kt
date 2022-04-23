@@ -6,6 +6,8 @@ import com.example.bip.presentation.ui.mainscreen.BaseMainScreenFragment
 import com.example.bip.presentation.ui.mainscreen.elm.Effect
 import com.example.bip.presentation.ui.mainscreen.elm.Event
 import com.example.bip.presentation.ui.mainscreen.elm.State
+import com.example.bip.presentation.utils.CustomFragmentFactory
+import com.example.bip.presentation.utils.FragmentTag
 import vivid.money.elmslie.core.store.Store
 import javax.inject.Inject
 
@@ -28,7 +30,7 @@ class MainPhotographerScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun createOrderAction() {
-        TODO("Not yet implemented")
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.SELECT_ORDER_FRAGMENT))
     }
 
     override fun qrCodeAction() {

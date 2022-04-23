@@ -1,11 +1,7 @@
 package com.example.bip.di.modules
 
-import com.example.bip.data.repositoy.AuthRepositoryImpl
-import com.example.bip.data.repositoy.ProfileRepositoryImpl
-import com.example.bip.data.repositoy.RegistrationRepositoryImpl
-import com.example.bip.domain.repository.AuthRepository
-import com.example.bip.domain.repository.ProfileRepository
-import com.example.bip.domain.repository.RegistrationRepository
+import com.example.bip.data.repositoy.*
+import com.example.bip.domain.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.Reusable
@@ -24,4 +20,12 @@ interface RepositoryModule {
     @Reusable
     @Binds
     fun bindProfileRepository(profileRepository: ProfileRepositoryImpl): ProfileRepository
+
+    @Reusable
+    @Binds
+    fun bindOrderRepository(orderRepository: OrderRepositoryImpl): OrderRepository
+
+    @Reusable
+    @Binds
+    fun bindOfferRepository(offerRepository: OfferRepositoryImpl): OfferRepository
 }

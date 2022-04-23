@@ -23,4 +23,24 @@ interface UseCaseModule {
     @Reusable
     @Binds
     fun bindAuth2Fa(auth2FaUseCase: Auth2FaUseCaseImpl): Auth2FaUseCase
+
+    @Reusable
+    @Binds
+    fun bindCreateOrderUseCase(createOrderUseCase: CreateOrderUseCaseImpl): CreateOrderUseCase
+
+    @Reusable
+    @Binds
+    fun bindGetBacklogUseCase(getBacklogOrders: GetBacklogOrdersImpl): GetBacklogOrders
+
+    @Reusable
+    @Binds
+    fun bindSelectUseCase(selectOrderUseCaseImpl: SelectOrderUseCaseImpl): SelectOrderUseCase
+
+    @Reusable
+    @Binds
+    fun bindGetOfferUseCase(getOffersUseCaseImpl: GetOffersUseCaseImpl): GetOffersUseCase
+
+    @Reusable
+    @Binds
+    fun bindSelectPhotographerUseCase(selectPhotographerUseCase: SelectPhotographerUseCaseImpl): SelectPhotographerUseCase
 }

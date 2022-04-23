@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import com.example.bip.presentation.ui.auth.main.AuthFragment
 import com.example.bip.presentation.ui.mainscreen.main.MainClientScreenFragment
 import com.example.bip.presentation.ui.mainscreen.main.MainPhotographerScreenFragment
+import com.example.bip.presentation.ui.offers.client.OffersFragment
+import com.example.bip.presentation.ui.order.client.CreateOrderFragment
+import com.example.bip.presentation.ui.order.photo.SelectOrderFragment
 import com.example.bip.presentation.ui.register.main.RegisterFragment
 
 class CustomFragmentFactory(var fragment: Fragment, var fragmentTag: FragmentTag) {
@@ -15,6 +18,9 @@ class CustomFragmentFactory(var fragment: Fragment, var fragmentTag: FragmentTag
                 FragmentTag.REGISTER_FRAGMENT_TAG -> RegisterFragment()
                 FragmentTag.MAIN_CLIENT_SCREEN_FRAGMENT -> MainClientScreenFragment()
                 FragmentTag.MAIN_PHOTOGRAPHER_SCREEN_FRAGMENT -> MainPhotographerScreenFragment()
+                FragmentTag.NOTIFICATION_CLIENT_SCREEN_FRAGMENT -> OffersFragment()
+                FragmentTag.CREATE_ORDER_FRAGMENT -> CreateOrderFragment()
+                FragmentTag.SELECT_ORDER_FRAGMENT -> SelectOrderFragment()
             }
             return CustomFragmentFactory(fragment, fragmentTag)
         }

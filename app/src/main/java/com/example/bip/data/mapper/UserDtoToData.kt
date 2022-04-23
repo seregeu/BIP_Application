@@ -8,6 +8,7 @@ class UserDtoToData @Inject constructor() : (UserDto) -> (UserData) {
 
     override fun invoke(userDto: UserDto): UserData = userDto.run {
         UserData(
+            id = id,
             firstName = firstName,
             secondName = secondName,
             isPhotographer = isPhotographer,
