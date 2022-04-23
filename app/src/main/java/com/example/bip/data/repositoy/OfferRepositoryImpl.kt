@@ -1,7 +1,6 @@
 package com.example.bip.data.repositoy
 
 
-import com.example.bip.data.db.dao.OrderDao
 import com.example.bip.data.mapper.UserDtoToData
 import com.example.bip.data.network.ApiService
 import com.example.bip.domain.entity.SelectOffer
@@ -16,26 +15,25 @@ import javax.inject.Inject
  */
 class OfferRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val userDtoToData: UserDtoToData,
-    private val orderDao: OrderDao
+    private val userDtoToData: UserDtoToData
 ) : OfferRepository {
 
     override fun getOffers(): Single<List<UserData>> {
-        return orderDao.getOrderId().flatMap {
-            apiService.getOffers(it)
-                .map { photographersResponse ->
-                    photographersResponse.photographers.map(userDtoToData)
-                }
-        }
+        return apiService.getAllOrders()
+            .flatMap { orderList ->
+                apiService.getOffers(idOrder = orderList.backlog?.firstOrNull()?.id ?: -1)
+            }
+            .map { it.photographers.map(userDtoToData) }
     }
 
     override fun selectOffer(selectOffer: SelectOffer): Completable {
-        return orderDao.getOrderId().flatMapCompletable {
-            apiService.acceptOffer(
-                idOrder = it,
-                idPhotographer = selectOffer.userData.id,
-                isAccept = selectOffer.isAccept
-            )
-        }
+        return apiService.getAllOrders()
+            .flatMapCompletable { orderList ->
+                apiService.acceptOffer(
+                    idOrder = orderList.backlog?.firstOrNull()?.id ?: -1,
+                    idPhotographer = selectOffer.userData.id,
+                    isAccept = selectOffer.isAccept
+                )
+            }
     }
 }

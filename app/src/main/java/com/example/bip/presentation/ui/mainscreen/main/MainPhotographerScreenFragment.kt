@@ -34,7 +34,7 @@ class MainPhotographerScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun qrCodeAction() {
-        TODO("Not yet implemented")
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.QRCODE_SCAN_FRAGMENT))
     }
 
     override fun moneyTransitAction() {

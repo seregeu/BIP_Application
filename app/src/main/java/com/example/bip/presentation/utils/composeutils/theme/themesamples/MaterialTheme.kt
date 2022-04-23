@@ -148,7 +148,6 @@ private val LightOrangeColorPalette = lightColorScheme(
     onSurfaceVariant = Color.Black,
 )
 
-
 @Composable
 fun ComposeCookBookMaterial3Theme(
     darkTheme: Boolean = isSystemInDarkTheme(),

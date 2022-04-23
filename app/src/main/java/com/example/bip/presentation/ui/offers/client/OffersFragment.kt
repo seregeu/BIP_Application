@@ -49,6 +49,7 @@ class OffersFragment : Fragment() {
         when (offerScreenEffect) {
             is OfferScreenEffect.SuccessSelectOffer -> {
                 showToast("Фотограф был успещшно выбран")
+                requireActivity().onBackPressed()
             }
             is OfferScreenEffect.ErrorOffer -> {
                 showToast(offerScreenEffect.error.message)

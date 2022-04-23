@@ -28,4 +28,8 @@ interface RepositoryModule {
     @Reusable
     @Binds
     fun bindOfferRepository(offerRepository: OfferRepositoryImpl): OfferRepository
+
+    @Reusable
+    @Binds
+    fun bindQrCodeRepository(qrCodeRepositoryImpl: QrCodeRepositoryImpl): QrCodeRepository
 }

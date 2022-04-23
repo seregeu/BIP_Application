@@ -8,6 +8,7 @@ import com.example.bip.presentation.ui.mainscreen.main.MainPhotographerScreenFra
 import com.example.bip.presentation.ui.offers.client.OffersFragment
 import com.example.bip.presentation.ui.order.client.CreateOrderFragment
 import com.example.bip.presentation.ui.order.photo.SelectOrderFragment
+import com.example.bip.presentation.ui.qrcode.scan.QrCodeScanFragment
 import com.example.bip.presentation.ui.register.main.RegisterFragment
 
 class CustomFragmentFactory(var fragment: Fragment, var fragmentTag: FragmentTag) {
@@ -21,6 +22,7 @@ class CustomFragmentFactory(var fragment: Fragment, var fragmentTag: FragmentTag
                 FragmentTag.NOTIFICATION_CLIENT_SCREEN_FRAGMENT -> OffersFragment()
                 FragmentTag.CREATE_ORDER_FRAGMENT -> CreateOrderFragment()
                 FragmentTag.SELECT_ORDER_FRAGMENT -> SelectOrderFragment()
+                FragmentTag.QRCODE_SCAN_FRAGMENT -> QrCodeScanFragment()
             }
             return CustomFragmentFactory(fragment, fragmentTag)
         }
