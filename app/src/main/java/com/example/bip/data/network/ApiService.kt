@@ -10,15 +10,12 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
     @POST("api/registration")
-    fun registerUser(@Body userEntity: UserEntity): Completable
+    fun registerUser(@Body userBody: UserBody): Completable
 
     @POST("api/auth")
     fun authUser(@Body authBody: AuthBody): Single<AuthResponseFirst>
@@ -28,6 +25,25 @@ interface ApiService {
 
     @GET("api/profile")
     fun getUserProfile(@Query("id_user") userId: String): Single<UserDto>
+
+    @POST("api/client/create-order")
+    fun createOrder(@Body orderBody: OrderBody): Single<OrderDto>
+
+    @GET("api/ph/orders")
+    fun getOrders(): Single<OrderListResponse>
+
+    @GET("api/client/offer")
+    fun getOffers(@Query("id_order") idOrder: Int): Single<OfferListResponse>
+
+    @PATCH("api/ph/select")
+    fun selectOrder(@Query("id_order") idOrder: Int): Completable
+
+    @PATCH("api/client/accept")
+    fun acceptOffer(
+        @Query("id_order") idOrder: Int,
+        @Query("id_photographer") idPhotographer: Int,
+        @Query("is_accept") isAccept: Boolean,
+    ): Completable
 
     companion object {
         fun create(authDao: AuthDao): ApiService {

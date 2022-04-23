@@ -4,16 +4,17 @@ package com.example.bip.presentation.ui.offers.client
  * @author v.nasibullin
  */
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Place
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -28,22 +29,22 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.example.bip.R
+import com.example.bip.domain.entity.UserData
 import com.example.bip.presentation.utils.composeutils.canvas.MultiStateAnimationCircleFilledCanvas
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.modifiers.verticalGradientBackground
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.purple
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.typography
-import kotlin.random.Random
 
 @Composable
-fun DatingHomeScreen() {
-    val viewModel: DatingHomeViewModel = viewModel()
-    val persons = viewModel.albumLiveData.observeAsState()
-
+fun OfferHomeScreen(viewModel: OfferHomeViewModel) {
+    val photographers = viewModel.offerLiveData.observeAsState()
+    val mutablePhotographers = remember { photographers }
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val cardHeight = screenHeight - 200.dp
+    var currentItem: UserData? = photographers.value?.firstOrNull()
 
     Surface(modifier = Modifier.fillMaxSize()) {
         val boxModifier = Modifier
@@ -58,9 +59,9 @@ fun DatingHomeScreen() {
         ) {
             val listEmpty = remember { mutableStateOf(false) }
             DatingLoader(modifier = boxModifier)
-            persons.value?.forEachIndexed { index, album ->
+            mutablePhotographers.value?.forEachIndexed { index, photographer ->
                 DraggableCard(
-                    item = album,
+                    item = photographer,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(cardHeight)
@@ -71,15 +72,15 @@ fun DatingHomeScreen() {
                             end = 16.dp
                         ),
                     onSwiped = { _, swipedAlbum ->
-                        if (persons.value?.isNotEmpty() == true) {
-                            persons.value?.remove(swipedAlbum)
-                            if (persons.value?.isEmpty() == true) {
+                        if (mutablePhotographers.value?.isNotEmpty() == true) {
+                            mutablePhotographers.value?.remove(swipedAlbum)
+                            if (photographers.value?.isEmpty() == true) {
                                 listEmpty.value = true
                             }
                         }
                     }
                 ) {
-                    CardContent(album)
+                    CardContent(photographer)
                 }
             }
             Row(
@@ -89,39 +90,48 @@ fun DatingHomeScreen() {
                     .padding(top = cardHeight)
                     .alpha(animateFloatAsState(if (listEmpty.value) 0f else 1f).value)
             ) {
-                IconButton(
-                    onClick = {
-                        /* TODO Hook to swipe event */
-                    },
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .size(60.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.background)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Cancel,
-                        tint = Color.Gray,
-                        contentDescription = null,
-                        modifier = Modifier.size(36.dp)
-                    )
+                AnimatedVisibility(visible = listEmpty.value) {
+                    IconButton(
+                        onClick = {
+                            if (currentItem != null) {
+                                viewModel.selectPhotographer(currentItem, false)
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .size(60.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.background)
+
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Cancel,
+                            tint = Color.Gray,
+                            contentDescription = null,
+                            modifier = Modifier.size(36.dp)
+                        )
+                    }
                 }
-                IconButton(
-                    onClick = {
-                        /* TODO Hook to swipe event */
-                    },
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .size(60.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.background)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = null,
-                        tint = Color.Red,
-                        modifier = Modifier.size(36.dp)
-                    )
+                AnimatedVisibility(visible = listEmpty.value) {
+                    IconButton(
+                        onClick = {
+                            if (currentItem != null) {
+                                viewModel.selectPhotographer(currentItem, true)
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .size(60.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.background)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = null,
+                            tint = Color.Red,
+                            modifier = Modifier.size(36.dp)
+                        )
+                    }
                 }
             }
         }
@@ -130,17 +140,17 @@ fun DatingHomeScreen() {
 
 
 @Composable
-fun CardContent(album: People) {
+fun CardContent(userData: UserData) {
     Column {
-        Image(
-            painter = painterResource(album.imageId),
+        AsyncImage(
+            model = userData.avatarUrl,
             contentScale = ContentScale.Crop,
             contentDescription = null,
             modifier = Modifier.weight(1f)
         )
         Row(modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)) {
             Text(
-                text = album.artist,
+                text = "${userData.firstName} ${userData.secondName}",
                 style = typography.h6,
                 modifier = Modifier
                     .padding(end = 8.dp)
@@ -155,18 +165,18 @@ fun CardContent(album: People) {
                 contentDescription = null
             )
             Text(
-                text = "${Random.nextInt(1, 15)} km",
+                text = userData.phoneNumber,
                 style = typography.body2,
                 color = purple
             )
         }
         Text(
-            text = "Age: ${Random.nextInt(21, 30)}, Casually browsing..",
+            text = userData.mail,
             style = typography.subtitle2,
             modifier = Modifier.padding(bottom = 4.dp, start = 16.dp, end = 16.dp)
         )
         Text(
-            text = "Miami, Florida",
+            text = "Saint-Petersburg",
             style = typography.subtitle2,
             modifier = Modifier.padding(bottom = 16.dp, start = 16.dp, end = 16.dp)
         )

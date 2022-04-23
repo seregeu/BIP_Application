@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class UserDto(
+data class UserDto(
     @SerialName("id")
     val id: Int,
     @SerialName("first_name")
@@ -27,4 +27,10 @@ class UserDto(
     val comments: List<CommentDto>? = null,
     @SerialName("list_photo_profile")
     val photoProfile: List<String>? = null,
+)
+
+@Serializable
+data class OfferListResponse(
+    @SerialName("photographers")
+    val photographers: List<UserDto>
 )

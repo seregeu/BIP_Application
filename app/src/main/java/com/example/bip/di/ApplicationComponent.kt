@@ -5,10 +5,10 @@ import com.example.bip.di.modules.DatabaseModule
 import com.example.bip.di.modules.NetworkModule
 import com.example.bip.di.modules.RepositoryModule
 import com.example.bip.di.modules.UseCaseModule
-import com.example.bip.di.subcomponents.AuthComponent
-import com.example.bip.di.subcomponents.MainClientScreenComponent
-import com.example.bip.di.subcomponents.MainPhotographerScreenComponent
-import com.example.bip.di.subcomponents.RegistrationComponent
+import com.example.bip.di.subcomponents.*
+import com.example.bip.presentation.ui.offers.client.OfferHomeViewModel
+import com.example.bip.presentation.ui.order.client.CreateOrderViewModel
+import com.example.bip.presentation.ui.order.photo.SelectOrderViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -26,6 +26,12 @@ interface ApplicationComponent {
     fun mainClientScreenComponent(): MainClientScreenComponent
 
     fun mainPhotographerScreenComponent(): MainPhotographerScreenComponent
+
+    fun getCreateOrderViewModel(): CreateOrderViewModel
+
+    fun getSelectOrderViewModel(): SelectOrderViewModel
+
+    fun getOfferHomeViewModel(): OfferHomeViewModel
 
     @Component.Factory
     interface Factory {

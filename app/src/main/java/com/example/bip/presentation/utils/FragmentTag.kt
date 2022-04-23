@@ -6,4 +6,6 @@ enum class FragmentTag(val value: String) {
     MAIN_CLIENT_SCREEN_FRAGMENT("mainClientScreenFragment"),
     MAIN_PHOTOGRAPHER_SCREEN_FRAGMENT("mainPhotographerScreenFragment"),
     NOTIFICATION_CLIENT_SCREEN_FRAGMENT("notificationClientScreenFragment"),
+    CREATE_ORDER_FRAGMENT("createOrderFragment"),
+    SELECT_ORDER_FRAGMENT("selectOrderFragment"),
 }

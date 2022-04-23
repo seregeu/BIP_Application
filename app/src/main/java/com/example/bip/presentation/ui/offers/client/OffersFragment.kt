@@ -12,13 +12,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import com.example.bip.App
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.ComposeCookBookMaterial3Theme
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.typography
+import com.example.bip.presentation.utils.showToast
+import com.example.bip.presentation.utils.viewModels
 
 /**
  * @author v.nasibullin
  */
 class OffersFragment : Fragment() {
+
+    private val viewModel: OfferHomeViewModel by viewModels {
+        App.appComponent.getOfferHomeViewModel()
+    }
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,8 +34,24 @@ class OffersFragment : Fragment() {
                 Scaffold(
                     topBar = { DatingHomeAppbar() }
                 ) {
-                    DatingHomeScreen()
+                    OfferHomeScreen(viewModel)
                 }
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.effectLiveData.observe(viewLifecycleOwner) { effectHandler(it) }
+    }
+
+    private fun effectHandler(offerScreenEffect: OfferScreenEffect) {
+        when (offerScreenEffect) {
+            is OfferScreenEffect.SuccessSelectOffer -> {
+                showToast("Фотограф был успещшно выбран")
+            }
+            is OfferScreenEffect.ErrorOffer -> {
+                showToast(offerScreenEffect.error.message)
             }
         }
     }
@@ -59,4 +82,3 @@ fun Fragment.contentView(
     view.setContent(content)
     return view
 }
-

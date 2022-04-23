@@ -30,7 +30,7 @@ class MainClientScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun createOrderAction() {
-        TODO("Not yet implemented")
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.CREATE_ORDER_FRAGMENT))
     }
 
     override fun qrCodeAction() {

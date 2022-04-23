@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserEntity(
+data class UserBody(
     @SerialName("first_name")
     val firstName: String,
     @SerialName("second_name")

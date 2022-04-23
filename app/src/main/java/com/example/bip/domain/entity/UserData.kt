@@ -1,6 +1,7 @@
 package com.example.bip.domain.entity
 
 class UserData(
+    val id: Int = -1,
     val firstName: String,
     val secondName: String,
     val isPhotographer: Boolean,
