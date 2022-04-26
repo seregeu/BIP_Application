@@ -78,7 +78,7 @@ dependencies {
 
     implementation "androidx.compose.ui:ui:$composeVersion"
     implementation "androidx.compose.ui:ui-tooling:$composeVersion"
-    implementation"androidx.compose.material:material:$composeVersion"
+    implementation "androidx.compose.material:material:$composeVersion"
     implementation "androidx.compose.material3:material3:$composeMaterial3"
     implementation "androidx.compose.material:material-icons-extended:$composeVersion"
     implementation "androidx.compose.runtime:runtime-livedata:$composeVersion"
@@ -90,6 +90,13 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$navCompose"
     implementation("io.coil-kt:coil-compose:2.0.0-rc03")
 
+    // CameraX
+    implementation "androidx.camera:camera-camera2:1.0.2"
+    implementation "androidx.camera:camera-lifecycle:1.0.2"
+    implementation "androidx.camera:camera-view:1.0.0-alpha31"
+
+    // Zxing
+    implementation 'com.google.mlkit:barcode-scanning:17.0.2'
 
 
     implementation "androidx.palette:palette-ktx:$paletteKtx"

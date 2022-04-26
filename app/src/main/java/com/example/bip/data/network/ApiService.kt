@@ -45,6 +45,19 @@ interface ApiService {
         @Query("is_accept") isAccept: Boolean,
     ): Completable
 
+    @PATCH("api/ph/confirm-qrcode")
+    fun confirmQrCode(@Query("qrcode") qrCode: String): Completable
+
+    @PATCH("api/client/qrcode")
+    fun getQrCode(
+        @Query("id_order") idOrder: Int,
+        @Query("latitude") latitude: Float,
+        @Query("longitude") longitude: Float,
+    ): Single<String>
+
+    @GET("api/client/all-orders")
+    fun getAllOrders(): Single<AllOrdersResponse>
+
     companion object {
         fun create(authDao: AuthDao): ApiService {
             return Retrofit.Builder()

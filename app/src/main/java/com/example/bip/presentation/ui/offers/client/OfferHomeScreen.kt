@@ -90,7 +90,7 @@ fun OfferHomeScreen(viewModel: OfferHomeViewModel) {
                     .padding(top = cardHeight)
                     .alpha(animateFloatAsState(if (listEmpty.value) 0f else 1f).value)
             ) {
-                AnimatedVisibility(visible = listEmpty.value) {
+                AnimatedVisibility(visible = !listEmpty.value) {
                     IconButton(
                         onClick = {
                             if (currentItem != null) {
@@ -112,7 +112,7 @@ fun OfferHomeScreen(viewModel: OfferHomeViewModel) {
                         )
                     }
                 }
-                AnimatedVisibility(visible = listEmpty.value) {
+                AnimatedVisibility(visible = !listEmpty.value) {
                     IconButton(
                         onClick = {
                             if (currentItem != null) {
