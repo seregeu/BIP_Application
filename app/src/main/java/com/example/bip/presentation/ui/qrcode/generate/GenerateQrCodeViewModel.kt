@@ -43,7 +43,7 @@ class GenerateQrCodeViewModel @Inject constructor(
                     _expand.value = true
                 },
                 onError = {
-
+                    it.message
                 }
             )
             .addTo(compositeDisposable)
@@ -57,9 +57,4 @@ class GenerateQrCodeViewModel @Inject constructor(
         super.onCleared()
         compositeDisposable.clear()
     }
-
-
-
-
-
 }

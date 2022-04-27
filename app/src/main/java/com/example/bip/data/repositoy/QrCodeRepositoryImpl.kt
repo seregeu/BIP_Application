@@ -29,5 +29,6 @@ class QrCodeRepositoryImpl @Inject constructor(
                     longitude = coordinatesData.longitude,
                 )
             }
+            .map { it.code }
     }
 }
