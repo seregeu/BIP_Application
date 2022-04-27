@@ -10,6 +10,7 @@ import com.example.bip.App
 import com.example.bip.domain.entity.CoordinatesData
 import com.example.bip.presentation.ui.offers.client.contentView
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.ComposeCookBookMaterial3Theme
+import com.example.bip.presentation.utils.showToast
 import com.example.bip.presentation.utils.viewModels
 import com.yayandroid.locationmanager.base.LocationBaseFragment
 import com.yayandroid.locationmanager.configuration.Configurations
@@ -35,7 +36,7 @@ class GenerateQrCodeFragment : LocationBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getLocation()
-        //viewModel.createOrderState.observe(viewLifecycleOwner) { createOrderState(it) }
+        viewModel.qrCodeScanEffects.observe(viewLifecycleOwner) { handleEffect(it) }
     }
 
     override fun onLocationChanged(location: Location?) {
@@ -50,5 +51,17 @@ class GenerateQrCodeFragment : LocationBaseFragment() {
 
     override fun getLocationConfiguration(): LocationConfiguration {
         return Configurations.defaultConfiguration("Gimme the permission!", "Would you mind to turn GPS on?");
+    }
+
+    private fun handleEffect(qrCodeGenerateQrCodeEffect: GenerateQrCodeEffect) {
+        when (qrCodeGenerateQrCodeEffect) {
+            is GenerateQrCodeEffect.CloseFragment -> {
+                requireActivity().onBackPressed()
+            }
+            is GenerateQrCodeEffect.ErrorGenerateQrCode -> {
+                showToast("Что-то не то, попробуйте ещё раз")
+                showToast(qrCodeGenerateQrCodeEffect.error.message)
+            }
+        }
     }
 }

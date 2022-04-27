@@ -1,6 +1,5 @@
 package com.example.bip.presentation.ui.qrcode.generate
 
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
@@ -70,8 +69,7 @@ fun GenerateQrCode(viewModel: GenerateQrCodeViewModel) {
                                 )
                         )
                         Button(
-                            onClick = {
-                            },
+                            onClick = { viewModel.close() },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color(0xFF6495ED)
                             ),

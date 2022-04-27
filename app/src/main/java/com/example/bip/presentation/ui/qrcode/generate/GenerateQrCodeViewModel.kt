@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bip.domain.entity.CoordinatesData
 import com.example.bip.domain.usecase.GenerateQrCodeUseCase
+import com.example.bip.presentation.ui.qrcode.scan.QrCodeScanEffects
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -25,6 +26,9 @@ class GenerateQrCodeViewModel @Inject constructor(
     private val _expand = MutableLiveData<Boolean>()
     val expand: LiveData<Boolean> = _expand
 
+    private val _qrCodeScanEffects = MutableLiveData<GenerateQrCodeEffect>()
+    val qrCodeScanEffects: LiveData<GenerateQrCodeEffect> = _qrCodeScanEffects
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private var coordinatesData: CoordinatesData = CoordinatesData()
@@ -43,14 +47,18 @@ class GenerateQrCodeViewModel @Inject constructor(
                     _expand.value = true
                 },
                 onError = {
-                    it.message
+                   _qrCodeScanEffects.value =  GenerateQrCodeEffect.ErrorGenerateQrCode(it)
                 }
             )
             .addTo(compositeDisposable)
     }
 
-    fun collapse(){
+    fun collapse() {
         _expand.value = false
+    }
+
+    fun close() {
+        _qrCodeScanEffects.value = GenerateQrCodeEffect.CloseFragment
     }
 
     override fun onCleared() {

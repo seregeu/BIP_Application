@@ -6,5 +6,5 @@ package com.example.bip.presentation.ui.qrcode.generate
 sealed class GenerateQrCodeEffect {
 
     object CloseFragment : GenerateQrCodeEffect()
-    class GenerateFragment : GenerateQrCodeEffect()
+    class ErrorGenerateQrCode(val error: Throwable) : GenerateQrCodeEffect()
 }
