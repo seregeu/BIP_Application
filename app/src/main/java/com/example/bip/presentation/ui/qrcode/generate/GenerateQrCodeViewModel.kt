@@ -60,4 +60,6 @@ class GenerateQrCodeViewModel @Inject constructor(
 
 
 
+
+
 }
