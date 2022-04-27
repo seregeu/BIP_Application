@@ -19,8 +19,8 @@ class GenerateQrCodeViewModel @Inject constructor(
     private val generateQrCodeUseCase: GenerateQrCodeUseCase
 ) : ViewModel() {
 
-    private val _qrCodeLiveData = MutableLiveData<String>()
-    val qrCodeLiveData: LiveData<String> = _qrCodeLiveData
+    private val _qrCodeLiveData = MutableLiveData<ByteArray>()
+    val qrCodeLiveData: LiveData<ByteArray> = _qrCodeLiveData
 
     private val _expand = MutableLiveData<Boolean>()
     val expand: LiveData<Boolean> = _expand

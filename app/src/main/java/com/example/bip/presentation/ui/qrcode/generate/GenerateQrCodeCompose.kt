@@ -1,5 +1,7 @@
 package com.example.bip.presentation.ui.qrcode.generate
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -31,7 +33,7 @@ import com.example.bip.presentation.utils.composeutils.theme.themesamples.typogr
 @OptIn(ExperimentalAnimationApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun GenerateQrCode(viewModel: GenerateQrCodeViewModel) {
-    val qrCode = viewModel.qrCodeLiveData.observeAsState("")
+    val qrCode = viewModel.qrCodeLiveData.observeAsState(ByteArray(0))
     val expanded = viewModel.expand.observeAsState(false)
     Scaffold {
         LazyColumn(
@@ -56,7 +58,7 @@ fun GenerateQrCode(viewModel: GenerateQrCodeViewModel) {
                         horizontalAlignment = Alignment.Start
                     ) {
                         Image(
-                            bitmap = QrCodeGeneratorUtil.encodeAsBitmap(qrCode.value, WIDTH = 300, HEIGHT = 300).asImageBitmap(),
+                            bitmap = BitmapFactory.decodeByteArray(qrCode.value, 0, qrCode.value.size).asImageBitmap(),
                             contentScale = ContentScale.Crop,
                             contentDescription = null,
                             modifier = Modifier

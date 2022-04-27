@@ -1,5 +1,7 @@
 package com.example.bip.data.repositoy
 
+import android.graphics.Bitmap
+import android.util.Base64
 import com.example.bip.data.db.dao.OrderDao
 import com.example.bip.data.network.ApiService
 import com.example.bip.domain.entity.CoordinatesData
@@ -20,7 +22,7 @@ class QrCodeRepositoryImpl @Inject constructor(
         return apiService.confirmQrCode(code)
     }
 
-    override fun generateQrCode(coordinatesData: CoordinatesData): Single<String> {
+    override fun generateQrCode(coordinatesData: CoordinatesData): Single<ByteArray> {
         return apiService.getAllOrders()
             .flatMap {
                 apiService.getQrCode(
@@ -29,6 +31,8 @@ class QrCodeRepositoryImpl @Inject constructor(
                     longitude = coordinatesData.longitude,
                 )
             }
-            .map { it.code }
+            .map {
+                Base64.decode(it.code, Base64.DEFAULT)
+            }
     }
 }

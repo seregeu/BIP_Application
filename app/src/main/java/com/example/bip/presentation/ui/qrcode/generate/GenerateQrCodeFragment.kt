@@ -35,6 +35,7 @@ class GenerateQrCodeFragment : LocationBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getLocation()
+        //viewModel.createOrderState.observe(viewLifecycleOwner) { createOrderState(it) }
     }
 
     override fun onLocationChanged(location: Location?) {
