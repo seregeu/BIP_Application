@@ -98,6 +98,7 @@ dependencies {
     // Zxing
     implementation 'com.google.mlkit:barcode-scanning:17.0.2'
 
+    implementation 'com.yayandroid:LocationManager:2.4.1'
 
     implementation "androidx.palette:palette-ktx:$paletteKtx"
 

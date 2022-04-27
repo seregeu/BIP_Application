@@ -21,10 +21,10 @@ class QrCodeRepositoryImpl @Inject constructor(
     }
 
     override fun generateQrCode(coordinatesData: CoordinatesData): Single<String> {
-        return orderDao.getOrderId()
+        return apiService.getAllOrders()
             .flatMap {
                 apiService.getQrCode(
-                    idOrder = it,
+                    idOrder = it.active?.firstOrNull()?.id ?: -1,
                     latitude = coordinatesData.latitude,
                     longitude = coordinatesData.longitude,
                 )
