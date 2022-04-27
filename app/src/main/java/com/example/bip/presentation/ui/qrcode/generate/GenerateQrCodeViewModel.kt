@@ -57,4 +57,7 @@ class GenerateQrCodeViewModel @Inject constructor(
         super.onCleared()
         compositeDisposable.clear()
     }
+
+
+
 }
