@@ -11,5 +11,5 @@ interface QrCodeRepository {
 
     fun checkQrCode(code: String): Completable
 
-    fun generateQrCode(coordinatesData: CoordinatesData): Single<String>
+    fun generateQrCode(coordinatesData: CoordinatesData): Single<ByteArray>
 }

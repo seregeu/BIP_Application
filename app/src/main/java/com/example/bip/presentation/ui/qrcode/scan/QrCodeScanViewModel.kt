@@ -37,7 +37,7 @@ class QrCodeScanViewModel @Inject constructor(
     private fun subscribeToGetQrCode() {
         qrCodeSubject
             .subscribeOn(Schedulers.io())
-            .debounce(1, TimeUnit.SECONDS, Schedulers.io())
+            .debounce(5, TimeUnit.SECONDS, Schedulers.io())
             .switchMapCompletable { code ->
                 confirmQrCodeUseCase(code)
             }

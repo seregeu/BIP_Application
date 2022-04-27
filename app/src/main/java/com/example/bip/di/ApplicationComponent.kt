@@ -9,6 +9,7 @@ import com.example.bip.di.subcomponents.*
 import com.example.bip.presentation.ui.offers.client.OfferHomeViewModel
 import com.example.bip.presentation.ui.order.client.CreateOrderViewModel
 import com.example.bip.presentation.ui.order.photo.SelectOrderViewModel
+import com.example.bip.presentation.ui.qrcode.generate.GenerateQrCodeViewModel
 import com.example.bip.presentation.ui.qrcode.scan.QrCodeScanViewModel
 import dagger.BindsInstance
 import dagger.Component
@@ -35,6 +36,8 @@ interface ApplicationComponent {
     fun getOfferHomeViewModel(): OfferHomeViewModel
 
     fun getQrCodeScanViewModel(): QrCodeScanViewModel
+
+    fun getGenerateQrCodeViewModel(): GenerateQrCodeViewModel
 
     @Component.Factory
     interface Factory {
