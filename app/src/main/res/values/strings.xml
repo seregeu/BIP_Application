@@ -35,6 +35,6 @@
     <string name="generate_qr_code">Сгенерировать QR код</string>
     <string name="scan_qr_code">Сканировать QR код</string>
     <string name="show_photo_list">Посмотреть список фотографов</string>
-    <string name="add_money">Пополнить счёт</string>
-    <string name="get_money">Вывести деньги</string>
+    <string name="check_photo">Проверить фотографии</string>
+    <string name="send_photo">Отправить фотографии</string>
 </resources>

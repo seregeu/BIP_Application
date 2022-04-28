@@ -17,10 +17,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.example.bip.domain.entity.CreateOrderData
 import com.example.bip.domain.entity.PhotoData
-import com.example.bip.domain.repository.AddPhotoController
-import com.example.bip.presentation.interfaces.CreateOrderController
+import com.example.bip.presentation.interfaces.AddPhotoController
 import com.example.bip.presentation.ui.order.client.HorizontalDottedProgressBar
 import com.example.bip.presentation.utils.composeutils.lottie.LottieLoadingView
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.helpers.TextFieldDefaultsMaterial

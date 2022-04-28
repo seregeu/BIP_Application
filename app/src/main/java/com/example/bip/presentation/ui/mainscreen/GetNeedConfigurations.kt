@@ -17,13 +17,13 @@ class GetNeedConfigurations @Inject constructor() : (Resources, Boolean) -> Sing
             listOf(
                 resources.getString(R.string.select_photo),
                 resources.getString(R.string.scan_qr_code),
-                resources.getString(R.string.get_money)
+                resources.getString(R.string.send_photo)
             )
         } else {
             listOf(
                 resources.getString(R.string.make_photo),
                 resources.getString(R.string.generate_qr_code),
-                resources.getString(R.string.add_money)
+                resources.getString(R.string.check_photo)
             )
         }
     }

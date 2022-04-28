@@ -1,4 +1,4 @@
-package com.example.bip.domain.repository
+package com.example.bip.presentation.interfaces
 
 import com.example.bip.domain.entity.PhotoData
 

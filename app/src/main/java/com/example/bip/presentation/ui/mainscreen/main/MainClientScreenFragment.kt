@@ -38,7 +38,7 @@ class MainClientScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun finishOrder() {
-        TODO("Not yet implemented")
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.CHECK_PHOTO_FRAGMENT))
     }
 
     override val initEvent: Event

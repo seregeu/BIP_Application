@@ -67,6 +67,21 @@ interface ApiService {
         @Body photoBody: PhotoBody,
     ): Completable
 
+    @GET("api/client/get-preview")
+    fun getPreview(
+        @Query("id_order") idOrder: Int
+    ): Single<PreviewResponse>
+
+    @GET("api/client/get-original")
+    fun getOriginal(
+        @Query("id_order") idOrder: Int
+    ): Single<OriginalResponse>
+
+    @POST("api/client/finish-order")
+    fun finishOrder(
+        @Query("id_order") idOrder: Int
+    ): Single<OriginalResponse>
+
     companion object {
         fun create(authDao: AuthDao): ApiService {
             return Retrofit.Builder()
