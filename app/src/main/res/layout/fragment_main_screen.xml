@@ -215,6 +215,7 @@
         app:layout_constraintTop_toBottomOf="@id/cv_photo_list">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/getMoneyButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

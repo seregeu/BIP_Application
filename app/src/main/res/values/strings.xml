@@ -37,4 +37,5 @@
     <string name="show_photo_list">Посмотреть список фотографов</string>
     <string name="add_money">Пополнить счёт</string>
     <string name="get_money">Вывести деньги</string>
+    <string name="enter_money_string">Enter money</string>
 </resources>

@@ -29,6 +29,9 @@ interface ApiService {
     @GET("api/profile")
     fun getUserProfile(@Query("id_user") userId: String): Single<UserDto>
 
+    @GET("/api/get-money")
+    fun getMoney(@Query("money") money: MoneyEntity): Completable
+
     companion object {
         fun create(authDao: AuthDao): ApiService {
             return Retrofit.Builder()

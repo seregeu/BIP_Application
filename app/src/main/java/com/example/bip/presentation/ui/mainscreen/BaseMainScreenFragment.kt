@@ -49,7 +49,7 @@ abstract class BaseMainScreenFragment : ElmFragment<Event, Effect, State>() {
 
     private fun initButton() = with(binding) {
         imgNotify.setOnClickListener { notifyOpenAction() }
-        imgMoney.setOnClickListener { moneyOpenAction() }
+        getMoneyButton.setOnClickListener { moneyOpenAction() }
         btnCreteOrder.setOnClickListener { createOrderAction() }
         cvQrCode.setOnClickListener { qrCodeAction() }
         cvAddMoney.setOnClickListener { moneyTransitAction() }

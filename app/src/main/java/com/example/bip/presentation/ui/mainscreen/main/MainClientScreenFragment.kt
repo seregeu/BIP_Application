@@ -6,6 +6,8 @@ import com.example.bip.presentation.ui.mainscreen.BaseMainScreenFragment
 import com.example.bip.presentation.ui.mainscreen.elm.Effect
 import com.example.bip.presentation.ui.mainscreen.elm.Event
 import com.example.bip.presentation.ui.mainscreen.elm.State
+import com.example.bip.presentation.utils.CustomFragmentFactory
+import com.example.bip.presentation.utils.FragmentTag
 import vivid.money.elmslie.core.store.Store
 import javax.inject.Inject
 
@@ -24,7 +26,9 @@ class MainClientScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun moneyOpenAction() {
-        TODO("Not yet implemented")
+        navigateController?.navigateFragment(
+            customFragmentFactory = CustomFragmentFactory.create(FragmentTag.GET_MONEY_FRAGMENT)
+        )
     }
 
     override fun createOrderAction() {
