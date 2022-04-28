@@ -19,7 +19,7 @@ class OfferRepositoryImpl @Inject constructor(
 ) : OfferRepository {
 
     override fun getOffers(): Single<List<UserData>> {
-        return apiService.getAllOrders()
+        return apiService.getAllOrdersClient()
             .flatMap { orderList ->
                 apiService.getOffers(idOrder = orderList.backlog?.firstOrNull()?.id ?: -1)
             }
@@ -27,7 +27,7 @@ class OfferRepositoryImpl @Inject constructor(
     }
 
     override fun selectOffer(selectOffer: SelectOffer): Completable {
-        return apiService.getAllOrders()
+        return apiService.getAllOrdersClient()
             .flatMapCompletable { orderList ->
                 apiService.acceptOffer(
                     idOrder = orderList.backlog?.firstOrNull()?.id ?: -1,

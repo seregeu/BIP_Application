@@ -56,7 +56,16 @@ interface ApiService {
     ): Single<QrCodeResponse>
 
     @GET("api/client/all-orders")
-    fun getAllOrders(): Single<AllOrdersResponse>
+    fun getAllOrdersClient(): Single<AllOrdersResponse>
+
+    @GET("api/ph/all-orders")
+    fun getAllOrdersPhoto(): Single<AllOrdersResponse>
+
+    @POST("api/ph/upload")
+    fun uploadPhoto(
+        @Query("id_order") idOrder: Int,
+        @Body photoBody: PhotoBody,
+    ): Completable
 
     companion object {
         fun create(authDao: AuthDao): ApiService {

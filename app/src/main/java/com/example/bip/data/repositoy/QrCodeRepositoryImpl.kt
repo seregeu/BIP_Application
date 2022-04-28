@@ -1,6 +1,5 @@
 package com.example.bip.data.repositoy
 
-import android.graphics.Bitmap
 import android.util.Base64
 import com.example.bip.data.db.dao.OrderDao
 import com.example.bip.data.network.ApiService
@@ -23,7 +22,7 @@ class QrCodeRepositoryImpl @Inject constructor(
     }
 
     override fun generateQrCode(coordinatesData: CoordinatesData): Single<ByteArray> {
-        return apiService.getAllOrders()
+        return apiService.getAllOrdersClient()
             .flatMap {
                 apiService.getQrCode(
                     idOrder = it.active?.firstOrNull()?.id ?: -1,

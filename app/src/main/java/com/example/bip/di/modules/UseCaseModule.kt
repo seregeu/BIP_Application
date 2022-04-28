@@ -51,4 +51,8 @@ interface UseCaseModule {
     @Reusable
     @Binds
     fun bindGenerateQrCodeUseCase(generateQrCodeUseCase: GenerateQrCodeUseCaseImpl): GenerateQrCodeUseCase
+
+    @Reusable
+    @Binds
+    fun bindAddPhotoUseCase(addPhotoUseCase: AddPhotoUseCaseImpl): AddPhotoUseCase
 }
