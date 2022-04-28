@@ -37,7 +37,7 @@ class MainClientScreenFragment : BaseMainScreenFragment() {
         navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.QRCODE_GENERATE_FRAGMENT))
     }
 
-    override fun moneyTransitAction() {
+    override fun finishOrder() {
         TODO("Not yet implemented")
     }
 

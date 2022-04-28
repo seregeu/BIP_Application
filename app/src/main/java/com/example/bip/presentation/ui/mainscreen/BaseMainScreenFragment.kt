@@ -52,12 +52,12 @@ abstract class BaseMainScreenFragment : ElmFragment<Event, Effect, State>() {
         imgMoney.setOnClickListener { moneyOpenAction() }
         btnCreteOrder.setOnClickListener { createOrderAction() }
         cvQrCode.setOnClickListener { qrCodeAction() }
-        cvAddMoney.setOnClickListener { moneyTransitAction() }
+        cvAddMoney.setOnClickListener { finishOrder() }
     }
 
     abstract fun notifyOpenAction()
     abstract fun moneyOpenAction()
     abstract fun createOrderAction()
     abstract fun qrCodeAction()
-    abstract fun moneyTransitAction()
+    abstract fun finishOrder()
 }

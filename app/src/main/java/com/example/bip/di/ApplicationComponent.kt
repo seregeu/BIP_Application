@@ -7,6 +7,7 @@ import com.example.bip.di.modules.RepositoryModule
 import com.example.bip.di.modules.UseCaseModule
 import com.example.bip.di.subcomponents.*
 import com.example.bip.presentation.ui.offers.client.OfferHomeViewModel
+import com.example.bip.presentation.ui.order.addphoto.AddPhotoViewModel
 import com.example.bip.presentation.ui.order.client.CreateOrderViewModel
 import com.example.bip.presentation.ui.order.photo.SelectOrderViewModel
 import com.example.bip.presentation.ui.qrcode.generate.GenerateQrCodeViewModel
@@ -38,6 +39,8 @@ interface ApplicationComponent {
     fun getQrCodeScanViewModel(): QrCodeScanViewModel
 
     fun getGenerateQrCodeViewModel(): GenerateQrCodeViewModel
+
+    fun getAddPhotoViewModel(): AddPhotoViewModel
 
     @Component.Factory
     interface Factory {

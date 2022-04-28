@@ -37,8 +37,8 @@ class MainPhotographerScreenFragment : BaseMainScreenFragment() {
         navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.QRCODE_SCAN_FRAGMENT))
     }
 
-    override fun moneyTransitAction() {
-        TODO("Not yet implemented")
+    override fun finishOrder() {
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.ADD_PHOTO_FRAGMENT))
     }
 
     override val initEvent: Event
