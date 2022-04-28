@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/inter_regular"
-                android:text="@string/add_money"
+                android:text="@string/check_photo"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"

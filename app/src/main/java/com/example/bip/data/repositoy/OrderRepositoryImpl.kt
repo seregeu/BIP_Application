@@ -49,4 +49,20 @@ class OrderRepositoryImpl @Inject constructor(
                 )
             }
     }
+
+    override fun getPreview(): Single<String> {
+        return apiService.getAllOrdersClient()
+            .flatMap { orderList ->
+                apiService.getPreview(idOrder = orderList.active?.firstOrNull()?.id ?: -1)
+            }
+            .map { it.urlWatermark }
+    }
+
+    override fun finishOrder(): Single<String> {
+        return apiService.getAllOrdersClient()
+            .flatMap { orderList ->
+                apiService.finishOrder(idOrder = orderList.active?.firstOrNull()?.id ?: -1)
+            }
+            .map { it.originalUrl }
+    }
 }

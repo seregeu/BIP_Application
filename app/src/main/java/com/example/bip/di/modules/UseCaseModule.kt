@@ -55,4 +55,12 @@ interface UseCaseModule {
     @Reusable
     @Binds
     fun bindAddPhotoUseCase(addPhotoUseCase: AddPhotoUseCaseImpl): AddPhotoUseCase
+
+    @Reusable
+    @Binds
+    fun bindFinishOrderUseCase(finishOrderUseCase: FinishOrderUseCaseImpl): FinishOrderUseCase
+
+    @Reusable
+    @Binds
+    fun bindGetPreviewUseCase(getPreviewUseCase: GetPreviewUseCaseImpl): GetPreviewUseCase
 }
