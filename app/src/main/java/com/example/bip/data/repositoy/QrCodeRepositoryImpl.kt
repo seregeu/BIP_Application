@@ -17,8 +17,8 @@ class QrCodeRepositoryImpl @Inject constructor(
     private val orderDao: OrderDao,
 ) : QrCodeRepository {
 
-    override fun checkQrCode(code: String): Completable {
-        return apiService.confirmQrCode(code)
+    override fun checkQrCode(code: String, coordinatesData: CoordinatesData): Completable {
+        return apiService.confirmQrCode(code, coordinatesData.latitude, coordinatesData.longitude)
     }
 
     override fun generateQrCode(coordinatesData: CoordinatesData): Single<ByteArray> {
