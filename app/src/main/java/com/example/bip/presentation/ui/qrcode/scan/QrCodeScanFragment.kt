@@ -48,6 +48,7 @@ class QrCodeScanFragment : LocationBaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomNavigationController?.goneBottomNavigation()
+        getLocation()
         viewModel.qrCodeScanEffects.observe(viewLifecycleOwner) { handleEffect(it) }
     }
 

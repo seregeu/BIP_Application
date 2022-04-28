@@ -48,8 +48,7 @@ interface ApiService {
     @PATCH("api/ph/confirm-qrcode")
     fun confirmQrCode(
         @Query("qrcode") qrCode: String,
-        @Query("latitude") latitude: Float,
-        @Query("longitude") longitude: Float,
+        @Body coordinatesBody: CoordinatesBody
     ): Completable
 
     @GET("api/client/qrcode")
