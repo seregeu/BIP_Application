@@ -9,7 +9,7 @@ import io.reactivex.Single
  */
 interface QrCodeRepository {
 
-    fun checkQrCode(code: String): Completable
+    fun checkQrCode(code: String, coordinatesData: CoordinatesData): Completable
 
     fun generateQrCode(coordinatesData: CoordinatesData): Single<ByteArray>
 }

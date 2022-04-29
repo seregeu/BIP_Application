@@ -46,7 +46,10 @@ interface ApiService {
     ): Completable
 
     @PATCH("api/ph/confirm-qrcode")
-    fun confirmQrCode(@Query("qrcode") qrCode: String): Completable
+    fun confirmQrCode(
+        @Query("qrcode") qrCode: String,
+        @Body coordinatesBody: CoordinatesBody
+    ): Completable
 
     @GET("api/client/qrcode")
     fun getQrCode(

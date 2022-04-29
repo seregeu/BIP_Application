@@ -3,6 +3,7 @@ package com.example.bip.presentation.ui.qrcode.scan
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.bip.domain.entity.CoordinatesData
 import com.example.bip.domain.usecase.ConfirmQrCodeUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -26,8 +27,14 @@ class QrCodeScanViewModel @Inject constructor(
     private val qrCodeSubject: PublishSubject<String> = PublishSubject.create()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    private var coordinatesData: CoordinatesData = CoordinatesData()
+
     init {
         subscribeToGetQrCode()
+    }
+
+    fun setCoordinatesData(coordinatesData: CoordinatesData) {
+        this.coordinatesData = coordinatesData
     }
 
     fun findQrCode(code: String) {
@@ -37,9 +44,9 @@ class QrCodeScanViewModel @Inject constructor(
     private fun subscribeToGetQrCode() {
         qrCodeSubject
             .subscribeOn(Schedulers.io())
-            .debounce(5, TimeUnit.SECONDS, Schedulers.io())
+            .debounce(1, TimeUnit.SECONDS, Schedulers.io())
             .switchMapCompletable { code ->
-                confirmQrCodeUseCase(code)
+                confirmQrCodeUseCase(code, coordinatesData)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(

@@ -79,6 +79,7 @@ class RegisterFragment : BaseRegisterFragment(){
 
     override fun handleEffect(effect: Effect) = when (effect) {
         is Effect.ErrorRegister -> {
+            effect
             showToast("Something went wrong")
         }
         is Effect.SuccessRegister -> {

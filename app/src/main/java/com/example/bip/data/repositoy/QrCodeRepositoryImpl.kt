@@ -2,6 +2,7 @@ package com.example.bip.data.repositoy
 
 import android.util.Base64
 import com.example.bip.data.db.dao.OrderDao
+import com.example.bip.data.entity.CoordinatesBody
 import com.example.bip.data.network.ApiService
 import com.example.bip.domain.entity.CoordinatesData
 import com.example.bip.domain.repository.QrCodeRepository
@@ -17,8 +18,8 @@ class QrCodeRepositoryImpl @Inject constructor(
     private val orderDao: OrderDao,
 ) : QrCodeRepository {
 
-    override fun checkQrCode(code: String): Completable {
-        return apiService.confirmQrCode(code)
+    override fun checkQrCode(code: String, coordinatesData: CoordinatesData): Completable {
+        return apiService.confirmQrCode(code,CoordinatesBody (coordinatesData.latitude, coordinatesData.longitude))
     }
 
     override fun generateQrCode(coordinatesData: CoordinatesData): Single<ByteArray> {
