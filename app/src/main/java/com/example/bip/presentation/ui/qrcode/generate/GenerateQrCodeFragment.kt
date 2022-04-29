@@ -41,7 +41,7 @@ class GenerateQrCodeFragment : LocationBaseFragment() {
 
     override fun onLocationChanged(location: Location?) {
         location?.run {
-            viewModel.setCoordinatesData(CoordinatesData(latitude = latitude.toFloat(), longitude = latitude.toFloat()))
+            viewModel.setCoordinatesData(CoordinatesData(latitude = latitude.toFloat(), longitude = longitude.toFloat()))
         }
     }
 

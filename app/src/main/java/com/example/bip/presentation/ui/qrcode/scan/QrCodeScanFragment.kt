@@ -22,7 +22,7 @@ import com.yayandroid.locationmanager.configuration.LocationConfiguration
 /**
  * @author v.nasibullin
  */
-class QrCodeScanFragment : LocationBaseFragment(){
+class QrCodeScanFragment : LocationBaseFragment() {
 
     private var bottomNavigationController: BottomNavigationController? = null
 
@@ -54,7 +54,7 @@ class QrCodeScanFragment : LocationBaseFragment(){
 
     override fun onLocationChanged(location: Location?) {
         location?.run {
-            viewModel.setCoordinatesData(CoordinatesData(latitude = latitude.toFloat(), longitude = latitude.toFloat()))
+            viewModel.setCoordinatesData(CoordinatesData(latitude = latitude.toFloat(), longitude = longitude.toFloat()))
         }
     }
 
