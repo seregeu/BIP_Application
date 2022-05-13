@@ -11,6 +11,7 @@ import com.example.bip.data.network.ApiService
 import com.example.bip.domain.entity.AuthData
 import com.example.bip.domain.repository.AuthRepository
 import io.reactivex.Completable
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -55,5 +56,10 @@ class AuthRepositoryImpl @Inject constructor(
                 )
             }
         }
+    }
+
+    override fun exit(): Completable {
+        return Observable.fromCallable { authDao.delete() }
+            .flatMapCompletable { if (it != 1) Completable.complete() else Completable.error(IllegalAccessError()) }
     }
 }

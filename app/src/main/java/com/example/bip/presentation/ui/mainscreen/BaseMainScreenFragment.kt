@@ -59,6 +59,7 @@ abstract class BaseMainScreenFragment : ElmFragment<Event, Effect, State>() {
         cvQrCode.setOnClickListener { qrCodeAction() }
         cvAddMoney.setOnClickListener { finishOrder() }
         cvPhotoList.setOnClickListener { offerAction() }
+        cvExit.setOnClickListener { exit() }
     }
 
     abstract fun notifyOpenAction()
@@ -67,4 +68,16 @@ abstract class BaseMainScreenFragment : ElmFragment<Event, Effect, State>() {
     abstract fun offerAction()
     abstract fun qrCodeAction()
     abstract fun finishOrder()
+
+    override fun handleEffect(effect: Effect) {
+        when (effect) {
+            Effect.Exit -> {
+                requireActivity().finish()
+            }
+        }
+    }
+
+    private fun exit() {
+        store.accept(Event.Ui.Exit)
+    }
 }

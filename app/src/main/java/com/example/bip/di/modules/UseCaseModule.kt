@@ -71,4 +71,8 @@ interface UseCaseModule {
     @Reusable
     @Binds
     fun bindGetPhotographerOrder(getPhotographerOrderImpl: GetPhotographerOrderImpl): GetPhotographerOrder
+
+    @Reusable
+    @Binds
+    fun bindExitUseCase(exitUseCase: ExitUseCaseImpl): ExitUseCase
 }

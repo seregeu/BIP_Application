@@ -33,7 +33,7 @@ class OffersFragment : Fragment() {
         return contentView(ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)) {
             ComposeCookBookMaterial3Theme(false) {
                 Scaffold(
-                    topBar = { DatingHomeAppbar() }
+                    topBar = { DatingHomeAppbar("Выберите фотографа") }
                 ) {
                     OfferHomeScreen(viewModel)
                 }
@@ -51,8 +51,10 @@ class OffersFragment : Fragment() {
     private fun effectHandler(offerScreenEffect: OfferScreenEffect) {
         when (offerScreenEffect) {
             is OfferScreenEffect.SuccessSelectOffer -> {
-                showToast("Фотограф был успещшно выбран")
-                requireActivity().onBackPressed()
+                if (offerScreenEffect.isAccept) {
+                    showToast("Фотограф был успешно выбран")
+                    requireActivity().onBackPressed()
+                }
             }
             is OfferScreenEffect.ErrorOffer -> {
                 showToast(offerScreenEffect.error.message)
@@ -71,8 +73,7 @@ class OffersFragment : Fragment() {
 
 
 @Composable
-fun DatingHomeAppbar() {
-    val title = "Discover"
+fun DatingHomeAppbar(title: String) {
     SmallTopAppBar(
         title = { Text(title, style = typography.h6) },
         actions = {

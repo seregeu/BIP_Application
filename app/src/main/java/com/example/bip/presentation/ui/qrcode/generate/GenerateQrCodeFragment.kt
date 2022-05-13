@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.example.bip.App
 import com.example.bip.domain.entity.CoordinatesData
+import com.example.bip.presentation.ui.offers.client.DatingHomeAppbar
 import com.example.bip.presentation.ui.offers.client.contentView
 import com.example.bip.presentation.ui.orderlist.OrderListFragment.Companion.ORDER_ID_KEY
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.ComposeCookBookMaterial3Theme
@@ -26,10 +29,15 @@ class GenerateQrCodeFragment : LocationBaseFragment() {
         App.appComponent.getGenerateQrCodeViewModel()
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return contentView(ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)) {
             ComposeCookBookMaterial3Theme {
-                GenerateQrCode(viewModel)
+                Scaffold(
+                    topBar = { DatingHomeAppbar("Генерация QR-кода") }
+                ) {
+                    GenerateQrCode(viewModel)
+                }
             }
         }
     }

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.example.bip.App
@@ -12,6 +14,7 @@ import com.example.bip.domain.entity.OrderData
 import com.example.bip.domain.usecase.OrderType
 import com.example.bip.presentation.interfaces.NavigateController
 import com.example.bip.presentation.interfaces.OrderListController
+import com.example.bip.presentation.ui.offers.client.DatingHomeAppbar
 import com.example.bip.presentation.ui.offers.client.contentView
 import com.example.bip.presentation.utils.CustomFragmentFactory
 import com.example.bip.presentation.utils.FragmentTag
@@ -27,10 +30,23 @@ class OrderListFragment : Fragment(), OrderListController {
 
     private lateinit var routVariant: RoutVariant
 
+    private lateinit var title: String
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is NavigateController) {
             navigateController = context
+        }
+        routVariant = RoutVariant.getRouteVariantFromInt(requireArguments().getInt(NEXT_FRAGMENT_KEY))
+        setTitle()
+    }
+
+    private fun setTitle() {
+        title = when (routVariant) {
+            RoutVariant.GENERATE_QR_CODE -> "Выберите заказ для QR кода"
+            RoutVariant.SELECT_PHOTOGRAPHER -> "Выберите заказ для которого нужен фотограф"
+            RoutVariant.CHECK_PHOTO -> "Выберите заказ для проверки фото"
+            RoutVariant.ADD_PHOTO -> "Выберите заказ для загрузки фото"
         }
     }
 
@@ -38,17 +54,21 @@ class OrderListFragment : Fragment(), OrderListController {
         App.appComponent.getActiveOrderListViewModel()
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return contentView(ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)) {
             ComposeCookBookMaterial3Theme(false) {
-                OrderListScreen(viewModel.orderLiveData, orderListController = this)
+                Scaffold(
+                    topBar = { DatingHomeAppbar(title) }
+                ) {
+                    OrderListScreen(viewModel.orderLiveData, orderListController = this)
+                }
             }
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        routVariant = RoutVariant.getRouteVariantFromInt(requireArguments().getInt(NEXT_FRAGMENT_KEY))
         getOrders()
     }
 

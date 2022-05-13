@@ -23,5 +23,11 @@ class MainScreenReducer @Inject constructor() : DslReducer<Event, State, Effect,
                 )
             }
         }
+        Event.Internal.Exit -> with(event) {
+            effects { Effect.Exit }
+        }
+        Event.Ui.Exit -> with(event) {
+            commands { +Command.Exit }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.bip.di.modules
 
 import com.example.bip.di.MainClientScreenScope
+import com.example.bip.domain.usecase.ExitUseCase
 import com.example.bip.presentation.ui.mainscreen.GetNeedConfigurations
 import com.example.bip.presentation.ui.mainscreen.elm.*
 import dagger.Module
@@ -13,9 +14,10 @@ class MainClientScreenModule {
     @MainClientScreenScope
     @Provides
     fun provideMainClientScreenActor(
-        getNeedConfigurations: GetNeedConfigurations
+        getNeedConfigurations: GetNeedConfigurations,
+        exitUseCase: ExitUseCase
     ): MainScreenActor {
-        return MainScreenActor(getNeedConfigurations)
+        return MainScreenActor(getNeedConfigurations, exitUseCase)
     }
 
     @MainClientScreenScope

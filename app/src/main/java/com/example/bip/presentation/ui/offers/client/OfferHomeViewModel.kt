@@ -43,7 +43,14 @@ class OfferHomeViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onComplete = { _effectLiveData.value = OfferScreenEffect.SuccessSelectOffer },
+                onComplete = {
+                    if (!isAccept) {
+                        val currentList = _offerLiveData.value?.toMutableList() ?: mutableListOf()
+                        currentList.remove(userData)
+                        _offerLiveData.value = currentList
+                    }
+                    _effectLiveData.value = OfferScreenEffect.SuccessSelectOffer(isAccept = isAccept)
+                },
                 onError = { _effectLiveData.value = OfferScreenEffect.ErrorOffer(it) }
             )
             .addTo(compositeDisposable)
