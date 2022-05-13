@@ -17,12 +17,14 @@ class GetNeedConfigurations @Inject constructor() : (Resources, Boolean) -> Sing
             listOf(
                 resources.getString(R.string.select_photo),
                 resources.getString(R.string.scan_qr_code),
+                resources.getString(R.string.action),
                 resources.getString(R.string.send_photo)
             )
         } else {
             listOf(
                 resources.getString(R.string.make_photo),
                 resources.getString(R.string.generate_qr_code),
+                resources.getString(R.string.select_photographers),
                 resources.getString(R.string.check_photo)
             )
         }

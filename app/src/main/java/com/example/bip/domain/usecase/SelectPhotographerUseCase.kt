@@ -8,15 +8,15 @@ import javax.inject.Inject
 /**
  * @author v.nasibullin
  */
-interface SelectPhotographerUseCase : (SelectOffer) -> (Completable) {
-    override fun invoke(selectOffer: SelectOffer): Completable
+interface SelectPhotographerUseCase : (SelectOffer, Int) -> (Completable) {
+    override fun invoke(selectOffer: SelectOffer, orderId: Int): Completable
 }
 
 class SelectPhotographerUseCaseImpl @Inject constructor(
     private val offerRepository: OfferRepository
 ) : SelectPhotographerUseCase {
 
-    override fun invoke(selectOffer: SelectOffer): Completable {
-        return offerRepository.selectOffer(selectOffer)
+    override fun invoke(selectOffer: SelectOffer, orderId: Int): Completable {
+        return offerRepository.selectOffer(selectOffer, orderId)
     }
 }

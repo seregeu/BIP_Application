@@ -7,12 +7,12 @@ import javax.inject.Inject
 /**
  * @author v.nasibullin
  */
-interface GetPreviewUseCase : () -> (Single<String>)
+interface GetPreviewUseCase : (Int) -> (Single<String>)
 
 class GetPreviewUseCaseImpl @Inject constructor(
     private val orderRepository: OrderRepository
 ) : GetPreviewUseCase {
-    override fun invoke(): Single<String> {
-        return orderRepository.getPreview()
+    override fun invoke(id: Int): Single<String> {
+        return orderRepository.getPreview(id)
     }
 }

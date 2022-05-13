@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.example.bip.App
+import com.example.bip.presentation.ui.orderlist.OrderListFragment
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.ComposeCookBookMaterial3Theme
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.typography
 import com.example.bip.presentation.utils.showToast
@@ -42,7 +43,9 @@ class OffersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.orderId = requireArguments().getInt(OrderListFragment.ORDER_ID_KEY)
         viewModel.effectLiveData.observe(viewLifecycleOwner) { effectHandler(it) }
+        viewModel.getOffers()
     }
 
     private fun effectHandler(offerScreenEffect: OfferScreenEffect) {
@@ -54,6 +57,14 @@ class OffersFragment : Fragment() {
             is OfferScreenEffect.ErrorOffer -> {
                 showToast(offerScreenEffect.error.message)
             }
+        }
+    }
+
+    companion object {
+        fun newInstance(args: Bundle): OffersFragment {
+            val fragment = OffersFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }

@@ -8,12 +8,12 @@ import javax.inject.Inject
 /**
  * @author v.nasibullin
  */
-interface GetOffersUseCase: () -> (Single<List<UserData>>)
+interface GetOffersUseCase : (Int) -> (Single<List<UserData>>)
 
 class GetOffersUseCaseImpl @Inject constructor(
     private val offerRepository: OfferRepository
-): GetOffersUseCase {
-    override fun invoke(): Single<List<UserData>> {
-        return offerRepository.getOffers()
+) : GetOffersUseCase {
+    override fun invoke(id: Int): Single<List<UserData>> {
+        return offerRepository.getOffers(id)
     }
 }

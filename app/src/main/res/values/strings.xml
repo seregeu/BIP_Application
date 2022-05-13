@@ -37,4 +37,6 @@
     <string name="show_photo_list">Посмотреть список фотографов</string>
     <string name="check_photo">Проверить фотографии</string>
     <string name="send_photo">Отправить фотографии</string>
+    <string name="select_photographers">Выбрать фотографа</string>
+    <string name="action">Акции</string>
 </resources>

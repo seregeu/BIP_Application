@@ -13,6 +13,7 @@ import com.example.bip.presentation.interfaces.AddPhotoController
 import com.example.bip.presentation.interfaces.BottomNavigationController
 import com.example.bip.presentation.ui.offers.client.contentView
 import com.example.bip.presentation.ui.order.client.CreateOrderScreenState
+import com.example.bip.presentation.ui.orderlist.OrderListFragment
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.ComposeCookBookMaterial3Theme
 import com.example.bip.presentation.utils.showToast
 import com.example.bip.presentation.utils.viewModels
@@ -46,6 +47,7 @@ class AddPhotoOrderFragment : Fragment(), AddPhotoController {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.orderId = requireArguments().getInt(OrderListFragment.ORDER_ID_KEY)
         bottomNavigationController?.goneBottomNavigation()
         viewModel.createOrderState.observe(viewLifecycleOwner) { createOrderState(it) }
     }
@@ -69,5 +71,13 @@ class AddPhotoOrderFragment : Fragment(), AddPhotoController {
 
     override fun addPhoto(photoData: PhotoData) {
         viewModel.addPhoto(photoData)
+    }
+
+    companion object {
+        fun newInstance(args: Bundle): AddPhotoOrderFragment {
+            val fragment = AddPhotoOrderFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

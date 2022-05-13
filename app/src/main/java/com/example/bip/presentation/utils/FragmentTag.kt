@@ -12,4 +12,5 @@ enum class FragmentTag(val value: String) {
     QRCODE_GENERATE_FRAGMENT("qrCodeGenerateFragment"),
     ADD_PHOTO_FRAGMENT("addPhotoFragment"),
     CHECK_PHOTO_FRAGMENT("checkPhotoFragment"),
+    ORDER_LIST_FRAGMENT("orderListFragment"),
 }

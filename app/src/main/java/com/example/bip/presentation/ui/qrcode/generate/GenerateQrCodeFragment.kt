@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.example.bip.App
 import com.example.bip.domain.entity.CoordinatesData
 import com.example.bip.presentation.ui.offers.client.contentView
+import com.example.bip.presentation.ui.orderlist.OrderListFragment.Companion.ORDER_ID_KEY
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.ComposeCookBookMaterial3Theme
 import com.example.bip.presentation.utils.showToast
 import com.example.bip.presentation.utils.viewModels
@@ -35,6 +36,7 @@ class GenerateQrCodeFragment : LocationBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.orderId = requireArguments().getInt(ORDER_ID_KEY)
         getLocation()
         viewModel.qrCodeScanEffects.observe(viewLifecycleOwner) { handleEffect(it) }
     }
@@ -62,6 +64,15 @@ class GenerateQrCodeFragment : LocationBaseFragment() {
                 showToast("Что-то не то, попробуйте ещё раз")
                 showToast(qrCodeGenerateQrCodeEffect.error.message)
             }
+        }
+    }
+
+    companion object {
+
+        fun newInstance(args: Bundle): GenerateQrCodeFragment {
+            val fragment = GenerateQrCodeFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }

@@ -6,6 +6,7 @@ import com.example.bip.presentation.ui.mainscreen.BaseMainScreenFragment
 import com.example.bip.presentation.ui.mainscreen.elm.Effect
 import com.example.bip.presentation.ui.mainscreen.elm.Event
 import com.example.bip.presentation.ui.mainscreen.elm.State
+import com.example.bip.presentation.ui.orderlist.OrderListFragment
 import com.example.bip.presentation.utils.CustomFragmentFactory
 import com.example.bip.presentation.utils.FragmentTag
 import vivid.money.elmslie.core.store.Store
@@ -22,15 +23,19 @@ class MainPhotographerScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun notifyOpenAction() {
-        TODO("Not yet implemented")
+
     }
 
     override fun moneyOpenAction() {
-        TODO("Not yet implemented")
+
     }
 
     override fun createOrderAction() {
         navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.SELECT_ORDER_FRAGMENT))
+    }
+
+    override fun offerAction() {
+
     }
 
     override fun qrCodeAction() {
@@ -38,7 +43,8 @@ class MainPhotographerScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun finishOrder() {
-        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.ADD_PHOTO_FRAGMENT))
+        val bundle = OrderListFragment.createBundle(OrderListFragment.RoutVariant.ADD_PHOTO)
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.ORDER_LIST_FRAGMENT, bundle = bundle))
     }
 
     override val initEvent: Event
@@ -51,5 +57,6 @@ class MainPhotographerScreenFragment : BaseMainScreenFragment() {
         btnCreteOrder.text = state.configUI.mainButton
         tvQrCode.text = state.configUI.qrCodeAction
         tvAddMoney.text = state.configUI.money
+        tvPhotoList.text = state.configUI.anotherButton
     }
 }

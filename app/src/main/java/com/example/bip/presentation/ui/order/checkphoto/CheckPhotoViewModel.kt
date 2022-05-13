@@ -27,14 +27,12 @@ class CheckPhotoViewModel @Inject constructor(
     private val _createOrderState = MutableLiveData<CreateOrderScreenState>()
     val createOrderState: LiveData<CreateOrderScreenState> = _createOrderState
 
+    var orderId: Int = -1
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    init {
-        getPreviewPhoto()
-    }
-
-    private fun getPreviewPhoto() {
-        getPreviewUseCase()
+    fun getPreviewPhoto() {
+        getPreviewUseCase(orderId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
@@ -47,7 +45,7 @@ class CheckPhotoViewModel @Inject constructor(
     }
 
     fun finishOrder() {
-        finishOrderUseCase()
+        finishOrderUseCase(orderId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(

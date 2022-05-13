@@ -33,12 +33,14 @@ class GenerateQrCodeViewModel @Inject constructor(
 
     private var coordinatesData: CoordinatesData = CoordinatesData()
 
+    var orderId: Int = 0
+
     fun setCoordinatesData(coordinatesData: CoordinatesData) {
         this.coordinatesData = coordinatesData
     }
 
     fun generateQrCode() {
-        generateQrCodeUseCase(coordinatesData)
+        generateQrCodeUseCase(coordinatesData, orderId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
@@ -47,7 +49,7 @@ class GenerateQrCodeViewModel @Inject constructor(
                     _expand.value = true
                 },
                 onError = {
-                   _qrCodeScanEffects.value =  GenerateQrCodeEffect.ErrorGenerateQrCode(it)
+                    _qrCodeScanEffects.value = GenerateQrCodeEffect.ErrorGenerateQrCode(it)
                 }
             )
             .addTo(compositeDisposable)

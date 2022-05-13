@@ -17,9 +17,13 @@ interface OrderRepository {
 
     fun selectOrder(orderData: OrderData): Completable
 
-    fun addPhoto(photoData: PhotoData): Completable
+    fun addPhoto(photoData: PhotoData, orderId: Int): Completable
 
-    fun getPreview(): Single<String>
+    fun getPreview(idOrder: Int): Single<String>
 
-    fun finishOrder(): Single<String>
+    fun finishOrder(orderId: Int): Single<String>
+
+    fun getAllClientOrders(): Single<List<OrderData>>
+
+    fun getAllPhotographersOrders(): Single<List<OrderData>>
 }
