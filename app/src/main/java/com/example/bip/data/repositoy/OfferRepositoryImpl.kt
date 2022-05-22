@@ -18,22 +18,16 @@ class OfferRepositoryImpl @Inject constructor(
     private val userDtoToData: UserDtoToData
 ) : OfferRepository {
 
-    override fun getOffers(): Single<List<UserData>> {
-        return apiService.getAllOrdersClient()
-            .flatMap { orderList ->
-                apiService.getOffers(idOrder = orderList.backlog?.firstOrNull()?.id ?: -1)
-            }
+    override fun getOffers(id: Int): Single<List<UserData>> {
+        return apiService.getOffers(idOrder = id)
             .map { it.photographers.map(userDtoToData) }
     }
 
-    override fun selectOffer(selectOffer: SelectOffer): Completable {
-        return apiService.getAllOrdersClient()
-            .flatMapCompletable { orderList ->
-                apiService.acceptOffer(
-                    idOrder = orderList.backlog?.firstOrNull()?.id ?: -1,
-                    idPhotographer = selectOffer.userData.id,
-                    isAccept = selectOffer.isAccept
-                )
-            }
+    override fun selectOffer(selectOffer: SelectOffer, orderId: Int): Completable {
+        return apiService.acceptOffer(
+            idOrder = orderId,
+            idPhotographer = selectOffer.userData.id,
+            isAccept = selectOffer.isAccept
+        )
     }
 }

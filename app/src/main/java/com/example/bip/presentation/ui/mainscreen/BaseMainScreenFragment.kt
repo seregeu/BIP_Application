@@ -47,17 +47,37 @@ abstract class BaseMainScreenFragment : ElmFragment<Event, Effect, State>() {
         initButton()
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        navigateController = null
+    }
+
     private fun initButton() = with(binding) {
         imgNotify.setOnClickListener { notifyOpenAction() }
         imgMoney.setOnClickListener { moneyOpenAction() }
         btnCreteOrder.setOnClickListener { createOrderAction() }
         cvQrCode.setOnClickListener { qrCodeAction() }
         cvAddMoney.setOnClickListener { finishOrder() }
+        cvPhotoList.setOnClickListener { offerAction() }
+        cvExit.setOnClickListener { exit() }
     }
 
     abstract fun notifyOpenAction()
     abstract fun moneyOpenAction()
     abstract fun createOrderAction()
+    abstract fun offerAction()
     abstract fun qrCodeAction()
     abstract fun finishOrder()
+
+    override fun handleEffect(effect: Effect) {
+        when (effect) {
+            Effect.Exit -> {
+                requireActivity().finish()
+            }
+        }
+    }
+
+    private fun exit() {
+        store.accept(Event.Ui.Exit)
+    }
 }

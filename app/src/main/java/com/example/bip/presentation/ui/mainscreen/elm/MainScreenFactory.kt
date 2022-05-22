@@ -9,7 +9,7 @@ class MainScreenFactory(
 ) {
     private val store by lazy {
         ElmStoreCompat(
-            initialState = State(ConfigUI("", "", "")),
+            initialState = State(ConfigUI("", "", "", "")),
             reducer = mainScreenReducer,
             actor = mainScreenActor
         )

@@ -11,6 +11,7 @@ import com.example.bip.presentation.ui.order.addphoto.AddPhotoViewModel
 import com.example.bip.presentation.ui.order.checkphoto.CheckPhotoViewModel
 import com.example.bip.presentation.ui.order.client.CreateOrderViewModel
 import com.example.bip.presentation.ui.order.photo.SelectOrderViewModel
+import com.example.bip.presentation.ui.orderlist.OrderListViewModel
 import com.example.bip.presentation.ui.qrcode.generate.GenerateQrCodeViewModel
 import com.example.bip.presentation.ui.qrcode.scan.QrCodeScanViewModel
 import dagger.BindsInstance
@@ -44,6 +45,8 @@ interface ApplicationComponent {
     fun getAddPhotoViewModel(): AddPhotoViewModel
 
     fun getCheckPhotoViewModel(): CheckPhotoViewModel
+
+    fun getActiveOrderListViewModel(): OrderListViewModel
 
     @Component.Factory
     interface Factory {

@@ -27,8 +27,10 @@ class AddPhotoViewModel @Inject constructor(
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    var orderId: Int = -1
+
     fun addPhoto(addPhotoData: PhotoData) {
-        addPhotoUseCase(addPhotoData)
+        addPhotoUseCase(addPhotoData, orderId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(

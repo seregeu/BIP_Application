@@ -16,11 +16,18 @@ class MainScreenReducer @Inject constructor() : DslReducer<Event, State, Effect,
                     configUI = ConfigUI(
                         mainButton = buttonTexts[0],
                         qrCodeAction = buttonTexts[1],
-                        money = buttonTexts[2]
+                        anotherButton = buttonTexts[2],
+                        money = buttonTexts[3]
                     ),
                     isSuccess = true
                 )
             }
+        }
+        Event.Internal.Exit -> with(event) {
+            effects { Effect.Exit }
+        }
+        Event.Ui.Exit -> with(event) {
+            commands { +Command.Exit }
         }
     }
 }

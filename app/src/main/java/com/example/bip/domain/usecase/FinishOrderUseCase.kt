@@ -7,12 +7,12 @@ import javax.inject.Inject
 /**
  * @author v.nasibullin
  */
-interface FinishOrderUseCase : () -> (Single<String>)
+interface FinishOrderUseCase : (Int) -> (Single<String>)
 
 class FinishOrderUseCaseImpl @Inject constructor(
     private val orderRepository: OrderRepository
 ) : FinishOrderUseCase {
-    override fun invoke(): Single<String> {
-        return orderRepository.finishOrder()
+    override fun invoke(orderId: Int): Single<String> {
+        return orderRepository.finishOrder(orderId)
     }
 }

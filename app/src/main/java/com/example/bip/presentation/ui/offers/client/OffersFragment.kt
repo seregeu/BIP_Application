@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.example.bip.App
+import com.example.bip.presentation.ui.orderlist.OrderListFragment
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.ComposeCookBookMaterial3Theme
 import com.example.bip.presentation.utils.composeutils.theme.themesamples.typography
 import com.example.bip.presentation.utils.showToast
@@ -32,7 +33,7 @@ class OffersFragment : Fragment() {
         return contentView(ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)) {
             ComposeCookBookMaterial3Theme(false) {
                 Scaffold(
-                    topBar = { DatingHomeAppbar() }
+                    topBar = { DatingHomeAppbar("Выберите фотографа") }
                 ) {
                     OfferHomeScreen(viewModel)
                 }
@@ -42,26 +43,37 @@ class OffersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.orderId = requireArguments().getInt(OrderListFragment.ORDER_ID_KEY)
         viewModel.effectLiveData.observe(viewLifecycleOwner) { effectHandler(it) }
+        viewModel.getOffers()
     }
 
     private fun effectHandler(offerScreenEffect: OfferScreenEffect) {
         when (offerScreenEffect) {
             is OfferScreenEffect.SuccessSelectOffer -> {
-                showToast("Фотограф был успещшно выбран")
-                requireActivity().onBackPressed()
+                if (offerScreenEffect.isAccept) {
+                    showToast("Фотограф был успешно выбран")
+                    requireActivity().onBackPressed()
+                }
             }
             is OfferScreenEffect.ErrorOffer -> {
                 showToast(offerScreenEffect.error.message)
             }
         }
     }
+
+    companion object {
+        fun newInstance(args: Bundle): OffersFragment {
+            val fragment = OffersFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 }
 
 
 @Composable
-fun DatingHomeAppbar() {
-    val title = "Discover"
+fun DatingHomeAppbar(title: String) {
     SmallTopAppBar(
         title = { Text(title, style = typography.h6) },
         actions = {

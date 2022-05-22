@@ -25,12 +25,10 @@ class OfferHomeViewModel @Inject constructor(
     private val _effectLiveData = MutableLiveData<OfferScreenEffect>()
     val effectLiveData: LiveData<OfferScreenEffect> = _effectLiveData
 
-    init {
-        getOffers()
-    }
+    var orderId: Int = -1
 
     fun getOffers() {
-        getOffersUseCase()
+        getOffersUseCase(orderId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
@@ -41,11 +39,18 @@ class OfferHomeViewModel @Inject constructor(
     }
 
     fun selectPhotographer(userData: UserData, isAccept: Boolean) {
-        selectOffersUseCase(SelectOffer(userData, isAccept))
+        selectOffersUseCase(SelectOffer(userData, isAccept), orderId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onComplete = { _effectLiveData.value = OfferScreenEffect.SuccessSelectOffer },
+                onComplete = {
+                    if (!isAccept) {
+                        val currentList = _offerLiveData.value?.toMutableList() ?: mutableListOf()
+                        currentList.remove(userData)
+                        _offerLiveData.value = currentList
+                    }
+                    _effectLiveData.value = OfferScreenEffect.SuccessSelectOffer(isAccept = isAccept)
+                },
                 onError = { _effectLiveData.value = OfferScreenEffect.ErrorOffer(it) }
             )
             .addTo(compositeDisposable)

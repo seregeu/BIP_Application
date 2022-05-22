@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), NavigateController, BottomNavigationCo
     }
 
     override fun visibleBottomNavigation() {
-        bottomNavigationView.visibility = View.VISIBLE
+        //bottomNavigationView.visibility = View.VISIBLE
     }
 
     override fun navigateFragment(customFragmentFactory: CustomFragmentFactory) {

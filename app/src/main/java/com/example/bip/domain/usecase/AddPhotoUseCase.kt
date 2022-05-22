@@ -8,13 +8,13 @@ import javax.inject.Inject
 /**
  * @author v.nasibullin
  */
-interface AddPhotoUseCase : (PhotoData) -> Completable
+interface AddPhotoUseCase : (PhotoData, Int) -> Completable
 
 class AddPhotoUseCaseImpl @Inject constructor(
     val orderRepository: OrderRepository
 ) : AddPhotoUseCase {
 
-    override fun invoke(photoData: PhotoData): Completable {
-        return orderRepository.addPhoto(photoData = photoData)
+    override fun invoke(photoData: PhotoData, orderId: Int): Completable {
+        return orderRepository.addPhoto(photoData = photoData, orderId = orderId)
     }
 }

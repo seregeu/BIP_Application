@@ -6,6 +6,7 @@ import com.example.bip.presentation.ui.mainscreen.BaseMainScreenFragment
 import com.example.bip.presentation.ui.mainscreen.elm.Effect
 import com.example.bip.presentation.ui.mainscreen.elm.Event
 import com.example.bip.presentation.ui.mainscreen.elm.State
+import com.example.bip.presentation.ui.orderlist.OrderListFragment
 import com.example.bip.presentation.utils.CustomFragmentFactory
 import com.example.bip.presentation.utils.FragmentTag
 import vivid.money.elmslie.core.store.Store
@@ -22,23 +23,29 @@ class MainClientScreenFragment : BaseMainScreenFragment() {
     }
 
     override fun notifyOpenAction() {
-        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.NOTIFICATION_CLIENT_SCREEN_FRAGMENT))
     }
 
     override fun moneyOpenAction() {
-        TODO("Not yet implemented")
+
     }
 
     override fun createOrderAction() {
         navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.CREATE_ORDER_FRAGMENT))
     }
 
+    override fun offerAction() {
+        val bundle = OrderListFragment.createBundle(OrderListFragment.RoutVariant.SELECT_PHOTOGRAPHER)
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.ORDER_LIST_FRAGMENT, bundle))
+    }
+
     override fun qrCodeAction() {
-        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.QRCODE_GENERATE_FRAGMENT))
+        val bundle = OrderListFragment.createBundle(OrderListFragment.RoutVariant.GENERATE_QR_CODE)
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.ORDER_LIST_FRAGMENT, bundle = bundle))
     }
 
     override fun finishOrder() {
-        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.CHECK_PHOTO_FRAGMENT))
+        val bundle = OrderListFragment.createBundle(OrderListFragment.RoutVariant.CHECK_PHOTO)
+        navigateController?.navigateFragment(CustomFragmentFactory.create(FragmentTag.ORDER_LIST_FRAGMENT, bundle = bundle))
     }
 
     override val initEvent: Event
@@ -51,5 +58,6 @@ class MainClientScreenFragment : BaseMainScreenFragment() {
         btnCreteOrder.text = state.configUI.mainButton
         tvQrCode.text = state.configUI.qrCodeAction
         tvAddMoney.text = state.configUI.money
+        tvPhotoList.text = state.configUI.anotherButton
     }
 }

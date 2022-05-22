@@ -15,24 +15,19 @@ import javax.inject.Inject
  */
 class QrCodeRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val orderDao: OrderDao,
 ) : QrCodeRepository {
 
     override fun checkQrCode(code: String, coordinatesData: CoordinatesData): Completable {
         return apiService.confirmQrCode(code,CoordinatesBody (coordinatesData.latitude, coordinatesData.longitude))
     }
 
-    override fun generateQrCode(coordinatesData: CoordinatesData): Single<ByteArray> {
-        return apiService.getAllOrdersClient()
-            .flatMap {
-                apiService.getQrCode(
-                    idOrder = it.active?.firstOrNull()?.id ?: -1,
-                    latitude = coordinatesData.latitude,
-                    longitude = coordinatesData.longitude,
-                )
-            }
-            .map {
-                Base64.decode(it.code, Base64.DEFAULT)
-            }
+    override fun generateQrCode(coordinatesData: CoordinatesData, id: Int): Single<ByteArray> {
+        return apiService.getQrCode(
+            idOrder = id,
+            latitude = coordinatesData.latitude,
+            longitude = coordinatesData.longitude,
+        ).map {
+            Base64.decode(it.code, Base64.DEFAULT)
+        }
     }
 }

@@ -18,17 +18,21 @@ sealed class Event {
 
     sealed class Ui : Event() {
         class InitButtonText(val resources: Resources, val isPhotographer: Boolean) : Ui()
+        object Exit : Ui()
     }
 
     sealed class Internal : Event() {
         class InitButtonText(val buttonTexts: List<String>) : Internal()
+        object Exit : Internal()
     }
 }
 
 sealed class Effect {
     class InitButtonText(val buttonTexts: List<String>) : Effect()
+    object Exit : Effect()
 }
 
 sealed class Command {
     class SelectNeedText(val resources: Resources, val isPhotographer: Boolean) : Command()
+    object Exit : Command()
 }

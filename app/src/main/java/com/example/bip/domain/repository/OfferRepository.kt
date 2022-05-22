@@ -10,7 +10,7 @@ import io.reactivex.Single
  */
 interface OfferRepository {
 
-    fun getOffers(): Single<List<UserData>>
+    fun getOffers(id :Int): Single<List<UserData>>
 
-    fun selectOffer(selectOffer: SelectOffer): Completable
+    fun selectOffer(selectOffer: SelectOffer, orderId: Int): Completable
 }

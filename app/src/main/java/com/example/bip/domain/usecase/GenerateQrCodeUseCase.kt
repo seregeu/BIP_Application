@@ -8,15 +8,15 @@ import javax.inject.Inject
 /**
  * @author v.nasibullin
  */
-interface GenerateQrCodeUseCase : (CoordinatesData) -> (Single<ByteArray>) {
-    override fun invoke(coordinatesData: CoordinatesData): Single<ByteArray>
+interface GenerateQrCodeUseCase : (CoordinatesData, Int) -> (Single<ByteArray>) {
+    override fun invoke(coordinatesData: CoordinatesData, id: Int): Single<ByteArray>
 }
 
 class GenerateQrCodeUseCaseImpl @Inject constructor(
     private val qrCodeRepository: QrCodeRepository
 ) : GenerateQrCodeUseCase {
 
-    override fun invoke(coordinatesData: CoordinatesData): Single<ByteArray> {
-        return qrCodeRepository.generateQrCode(coordinatesData)
+    override fun invoke(coordinatesData: CoordinatesData, id: Int): Single<ByteArray> {
+        return qrCodeRepository.generateQrCode(coordinatesData, id)
     }
 }
